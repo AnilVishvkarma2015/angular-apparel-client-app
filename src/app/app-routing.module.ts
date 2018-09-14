@@ -1,0 +1,44 @@
+import { NgModule, Component } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { LoginComponent } from './components/user/login/login.component';
+import { RegisterComponent } from './components/user/register/register.component';
+import { UsersComponent } from './components/user/users/users.component';
+import { ProductsCrudOperations } from './components/product/products-crud-operations/products-crud-operations.component';
+import { ProductsComponent } from './components/product/products/products.component';
+import { AuthGuard } from './core/auth.guard';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: LoginComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
+  },
+  {
+    path: 'users',
+    canActivate: [AuthGuard],
+    component: UsersComponent
+  },
+  {
+    path: 'products',
+    component: ProductsComponent
+  },
+  { path: '**', redirectTo: '' }
+];
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(routes)
+  ],
+  exports: [
+    RouterModule
+  ],
+  declarations: []
+})
+export class AppRoutingModule { }

@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+body {
+    margin: 0;
+}
+
+.success-snackbar {
+    background-color: #51A351;
+}
+
+.warning-snackbar {
+    background-color: #F89406;
+}
+
+.info-snackbar {
+    background-color: #F89406;
+}
+
+.error-snackbar {
+    background-color: #BD362F;
+}
+
+.table-layout {
+    width: 96%;
+    height: 750px;
+    margin-top: 2%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-right-align {
+    text-align: right;
+}
+
+.header-cell {
+    font-weight: bold;
+}
+

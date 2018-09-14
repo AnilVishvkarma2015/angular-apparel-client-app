@@ -1,0 +1,52 @@
+<div class="dialog-box-container">
+  <h2 mat-dialog-title style="text-align: center">
+    <b>Add Product</b>
+  </h2>
+  <hr class="dialog-title-hr">
+  <mat-dialog-content [formGroup]="form">
+    <input type="hidden" name="id" formControlName="id">
+    <br>
+    <mat-form-field class="card-full-width">
+      <input matInput placeholder="Product Name" formControlName="productName">
+      <mat-error *ngIf="isFieldInvalid('productName')">
+        Please enter product name.
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="card-full-width">
+      <input matInput placeholder="Product Brand" formControlName="productBrand">
+      <mat-error *ngIf="isFieldInvalid('productBrand')">
+        Please enter product brand.
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="card-full-width">
+      <input matInput placeholder="Product Category" formControlName="productCategory">
+      <mat-error *ngIf="isFieldInvalid('productCategory')">
+        Please enter product category.
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="card-full-width">
+      <input matInput placeholder="Product Barcode" formControlName="productBarcode">
+      <mat-error *ngIf="isFieldInvalid('productBarcode')">
+        Please enter product barcode.
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="card-full-width">
+      <input matInput placeholder="Product Description" formControlName="productDescription">
+      <mat-error *ngIf="isFieldInvalid('productDescription')">
+        Please enter product description.
+      </mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button class="mat-raised-button" (click)="close()">
+      Close
+    </button>
+    <button [disabled]="!form.valid" class="mat-raised-button mat-primary" (click)="save()">
+      Save
+    </button>
+  </mat-dialog-actions>
+</div>

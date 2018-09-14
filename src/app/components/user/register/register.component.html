@@ -1,0 +1,58 @@
+<!-- <div style="height: 550px;"> -->
+<mat-card class="register-card">
+  <mat-toolbar color="accent" class="card-toolbar">
+    <span class="title-center">USER REGISTRATION</span>
+  </mat-toolbar>
+
+  <mat-card-content>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm)">
+     <!--  <input type="hidden" name="id" formControlName="userService.selectedUser.id"> -->
+      <table class="card-full-width" cellspacing="0">
+        <tr>
+          <td>
+            <mat-form-field class="card-full-width">
+              <input matInput placeholder="First Name" formControlName="firstName" name="firstName" required>
+              <mat-error *ngIf="isFieldInvalid('firstName')">
+                Please enter first name
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field class="card-full-width">
+              <input matInput placeholder="Last Name" formControlName="lastName" name="lastName" required>
+              <mat-error *ngIf="isFieldInvalid('lastName')">
+                Please enter last name
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field class="card-full-width">
+              <input matInput placeholder="Email" formControlName="email" name="email" required>
+              <mat-error *ngIf="isFieldInvalid('email')">
+                Please enter email
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field class="card-full-width">
+              <input matInput placeholder="Password" formControlName="password" type="password" name="password" required>
+              <mat-error *ngIf="isFieldInvalid('password')">
+                Please enter password
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+      <mat-card-actions align="end">
+        <button mat-raised-button color="accent" type="submit">SUBMIT</button>
+      </mat-card-actions>
+    </form>
+  </mat-card-content>
+</mat-card>
+<!-- </div> -->

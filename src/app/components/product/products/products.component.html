@@ -1,0 +1,61 @@
+<div class="table-layout">
+  <div>
+    <div fxFlex="50%">
+      <button mat-raised-button color="primary" type="submit" (click)="addProduct()">Add</button>
+      <button mat-raised-button color="primary" type="submit" (click)="downloadPDF()" style="margin-left: 15px;">Download</button>
+    </div>
+
+    <div fxFlex="50%" style="text-align: end">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="mat-elevation-z8">
+    <mat-table [dataSource]="dataSource" matSort>
+
+      <!-- Product Name Column -->
+      <ng-container matColumnDef="productName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Product Name </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.productName}} </mat-cell>
+      </ng-container>
+
+      <!-- Progress Column -->
+      <ng-container matColumnDef="productBrand">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Product Brand </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.productBrand}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="productCategory">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Product Category </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.productCategory}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="productBarcode">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Product Barcode </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.productBarcode}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef class="header-cell"> Actions </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <a class="action-btn" (click)="updateProduct(row)">
+            <mat-icon>edit</mat-icon>
+          </a>
+          <a class="action-btn" (click)="deleteProduct(row)">
+            <mat-icon>delete</mat-icon>
+          </a>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[3, 5, 10, 25, 100]"></mat-paginator>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css?family=Patua+One');
+@import url('https://fonts.googleapis.com/css?family=Passion+One');
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+  
+  .example-icon {
+    padding: 0 14px;
+    cursor: pointer
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+
+  .fixed-header {
+    top: 0;
+    position: fixed;
+    z-index:999;
+  }
+
+  .sidenav-container {
+    height: 100%;
+  }
+
+  a {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+  }
+  
+  .sidenav {
+    width: 200px;
+    box-shadow: 3px 20px 16px rgba(0,0,0,.24);
+  }
+
+  .appName{
+    font-family: 'Passion One', sans-serif;
+    font-size: 25px;
+  }
+
+  .current-user {
+    font-family: 'Petua One', sans-serif;
+    font-size: 18px;
+    font-weight: bolder;
+  }
