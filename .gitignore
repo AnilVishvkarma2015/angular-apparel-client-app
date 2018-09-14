@@ -1,0 +1,6 @@
+# Dependency directories to ignore to github
+.git
+node_modules
+package-lock.json
+.editorconfig
+

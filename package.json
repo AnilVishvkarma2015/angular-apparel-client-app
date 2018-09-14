@@ -1,6 +1,6 @@
 {
-  "name": "mat-app",
-  "version": "0.0.0",
+  "name": "angular-apparel-client-app",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -9,6 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
+  "author": "Anil Vishvkarma",
   "private": true,
   "dependencies": {
     "@angular/animations": "^6.1.6",
