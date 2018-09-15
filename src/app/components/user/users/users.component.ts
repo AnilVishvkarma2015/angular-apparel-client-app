@@ -1,15 +1,17 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource, MatDialog, MatDialogConfig } from '@angular/material';
-import { User } from '../../../models/user.model';
-import { UserService } from '../../../services/user.service';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { first } from 'rxjs/operators';
 
-declare var jsPDF: any
+import { User } from '../../../models/user.model';
+import { UserService } from '../../../services/user.service';
+import { ExportPdfService } from '../../../services/export-pdf.service';
+
 @Component({
   selector: 'users.component',
   styleUrls: ['users.component.scss'],
   templateUrl: 'users.component.html',
 })
+
 export class UsersComponent {
   displayedColumns = ['firstName', 'lastName', 'email', 'actions'];
   dataSource: MatTableDataSource<User>;
@@ -17,7 +19,7 @@ export class UsersComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private exportPdfService: ExportPdfService) { }
 
   ngAfterViewInit() {
     this.loadUserRecords();
@@ -26,10 +28,8 @@ export class UsersComponent {
   downloadPDF() {
     let columns = ["No", "First Name", " Last Name", "Email"];
     let rows = [];
-    var doc = new jsPDF('p', 'pt');
-
+    let item = "USERS REPORT";
     let counter = 1;
-    console.log(doc.getFontList());
 
     this.userService.getUsers().pipe(first()).subscribe(users => {
       for (var user of users) {
@@ -41,15 +41,7 @@ export class UsersComponent {
         ];
         rows.push(userArray);
       }
-      doc.autoTable(columns, rows, {
-        margin: { top: 60 },
-        addPageContent: function (data) {
-          doc.setFontSize(12);
-          doc.setFontStyle('bold');
-          doc.text("PRODUCTS REPORT", 240, 40);
-        }
-      }); // typescript compile time error
-      doc.save('Users.pdf');
+      this.exportPdfService.exportToPdf(columns, rows, item);
     });
 
   }

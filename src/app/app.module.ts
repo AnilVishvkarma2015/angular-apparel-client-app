@@ -23,6 +23,10 @@ import { ProductsComponent } from './components/product/products/products.compon
 import { ProductsCrudOperations } from './components/product/products-crud-operations/products-crud-operations.component';
 import { AddProductDialogComponent } from './components/product/add-product-dialog/add-product-dialog.component';
 import { UpdateProductDialogComponent } from './components/product/update-product-dialog/update-product-dialog.component';
+import { SuppliersComponent } from './components/supplier/suppliers/suppliers.component';
+import { SuppliersCrudOperationsComponent } from './components/supplier/suppliers-crud-operations/suppliers-crud-operations.component';
+import { AddSupplierDialogComponent } from './components/supplier/add-supplier-dialog/add-supplier-dialog.component';
+import { UpdateSupplierDialogComponent } from './components/supplier/update-supplier-dialog/update-supplier-dialog.component';
 
 
 @NgModule({
@@ -36,7 +40,11 @@ import { UpdateProductDialogComponent } from './components/product/update-produc
     ProductsComponent,
     ProductsCrudOperations,
     AddProductDialogComponent,
-    UpdateProductDialogComponent
+    UpdateProductDialogComponent,
+    SuppliersComponent,
+    SuppliersCrudOperationsComponent,
+    AddSupplierDialogComponent,
+    UpdateSupplierDialogComponent
   ],
   imports: [
     FormsModule,
@@ -51,7 +59,9 @@ import { UpdateProductDialogComponent } from './components/product/update-produc
   ],
   entryComponents: [
     AddProductDialogComponent,
-    UpdateProductDialogComponent
+    UpdateProductDialogComponent,
+    AddSupplierDialogComponent,
+    UpdateSupplierDialogComponent
   ],
   providers: [
     AuthGuard,

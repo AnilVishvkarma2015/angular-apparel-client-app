@@ -1,7 +1,7 @@
 import { Component, Inject, Injectable } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 import { Product } from "../../../models/product.model";
-import { FormBuilder, Validators, FormGroup, FormControl } from "@angular/forms";
+import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'

@@ -1,12 +1,13 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatDialog, MatDialogConfig } from '@angular/material';
-import { Product } from '../../../models/product.model';
-import { ProductService } from '../../../services/product.service';
 import { first } from 'rxjs/operators';
+
 import { AddProductDialogComponent } from '../add-product-dialog/add-product-dialog.component';
 import { UpdateProductDialogComponent } from '../update-product-dialog/update-product-dialog.component';
 import { ProductsCrudOperations } from '../products-crud-operations/products-crud-operations.component';
-declare var jsPDF: any;
+import { Product } from '../../../models/product.model';
+import { ProductService } from '../../../services/product.service';
+import { ExportPdfService } from '../../../services/export-pdf.service';
 
 @Component({
   selector: 'app-products',
@@ -20,7 +21,11 @@ export class ProductsComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private productService: ProductService, public dialog: MatDialog, private productsOperation: ProductsCrudOperations) { }
+  constructor(private productService: ProductService,
+    public dialog: MatDialog,
+    private productsOperation: ProductsCrudOperations,
+    private exportPdfService: ExportPdfService
+  ) { }
 
   ngAfterViewInit() {
     this.loadProducts();
@@ -93,10 +98,8 @@ export class ProductsComponent {
   downloadPDF() {
     let columns = ["No", "Product Name", "Product Brand", "Product Category", "Product Barcode"];
     let rows = [];
-    var doc = new jsPDF('p', 'pt');
-
+    let itemName = "PRODUCTS REPORT";
     let counter = 1;
-    console.log(doc.getFontList());
 
     this.productService.getProducts().pipe(first()).subscribe(products => {
       for (var product of products) {
@@ -109,16 +112,7 @@ export class ProductsComponent {
         ];
         rows.push(productArray);
       }
-      doc.autoTable(columns, rows, {
-        margin: { top: 60 },
-        addPageContent: function (data) {
-          doc.setFontSize(12);
-          doc.setFontStyle('bold');
-          doc.text("PRODUCTS REPORT", 240, 40);
-        }
-      });
-      doc.save('Products.pdf');
+      this.exportPdfService.exportToPdf(columns, rows, itemName);
     })
-
   }
 }
