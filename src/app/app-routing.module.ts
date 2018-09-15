@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegisterComponent } from './components/user/register/register.component';
 import { UsersComponent } from './components/user/users/users.component';
-import { ProductsCrudOperations } from './components/product/products-crud-operations/products-crud-operations.component';
 import { ProductsComponent } from './components/product/products/products.component';
+import { SuppliersComponent } from './components/supplier/suppliers/suppliers.component';
 import { AuthGuard } from './core/auth.guard';
 
 const routes: Routes = [
@@ -27,7 +27,13 @@ const routes: Routes = [
   },
   {
     path: 'products',
+    canActivate: [AuthGuard],
     component: ProductsComponent
+  },
+  {
+    path: 'suppliers',
+    canActivate: [AuthGuard],
+    component: SuppliersComponent
   },
   { path: '**', redirectTo: '' }
 ];

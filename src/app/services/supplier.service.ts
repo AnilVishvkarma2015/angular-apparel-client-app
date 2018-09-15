@@ -2,19 +2,19 @@ import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
-import { Product } from '../models/product.model';
+import { Supplier } from '../models/supplier.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-const baseURL = 'http://localhost:4000/products';
+const baseURL = 'http://localhost:4000/suppliers';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
-  
+export class SupplierService {
+
   constructor(private http: HttpClient) { }
 
   private handleError(error: HttpErrorResponse) {
@@ -32,22 +32,23 @@ export class ProductService {
     return throwError('Something bad happened; please try again later.');
   };
 
-  createProduct(product: Product) {
-    return this.http.post(baseURL + '/create', product, httpOptions)
+  createSupplier(supplier: Supplier) {
+    return this.http.post(baseURL + '/create', supplier, httpOptions)
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  getProducts() {
-    return this.http.get<Product[]>(baseURL + '/');
+  getSuppliers() {
+    console.log("---- get Suppliers result ---");
+    return this.http.get<Supplier[]>(baseURL + '/');
   }
 
-  updateProduct(product: Product) {
-    return this.http.put(baseURL + '/' + product.id, product);
+  updateSupplier(supplier: Supplier) {
+    return this.http.put(baseURL + '/' + supplier.id, supplier);
   }
 
-  deleteProduct(product: Product) {
-    return this.http.delete(baseURL + '/' + product.id);
+  deleteSupplier(supplier: Supplier) {
+    return this.http.delete(baseURL + '/' + supplier.id);
   }
 }
