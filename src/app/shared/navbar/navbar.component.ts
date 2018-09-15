@@ -15,7 +15,6 @@ export class NavbarComponent {
   constructor(private breakpointObserver: BreakpointObserver, public authService: AuthenticationService) {
     this.isUserLoggedIn = authService.isUserLoggedIn();
     this.currentUser = authService.currentUser();
-    console.log("Curent User ---", this.currentUser);
   }
 
   onLogout() {
