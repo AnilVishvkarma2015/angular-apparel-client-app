@@ -1,0 +1,87 @@
+<div class="dialog-box-container">
+  <h1 mat-dialog-title class="dialog-title">
+    <b>Update Purchase Order</b>
+  </h1>
+  <hr class="dialog-title-hr">
+  <mat-dialog-content [formGroup]="form">
+    <input type="hidden" name="id" formControlName="id">
+    <br>
+    <div fxLayout="row">
+      <mat-form-field class="card-full-width" fxFlex="45%">
+        <input matInput placeholder="Order Number" formControlName="orderNumber">
+      </mat-form-field>
+      <div fxFlex="10%"></div>
+      <mat-form-field class="card-full-width" fxFlex="45%">
+        <mat-select placeholder="Order Status" formControlName="orderStatus">
+          <mat-option *ngFor="let status of statusList" [value]="status.value">
+            {{ status.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <br>
+    <div fxLayout="row">
+      <mat-form-field class="card-full-width" fxFlex="45%">
+        <input matInput placeholder="Product Category" formControlName="productCategory">
+        <mat-error *ngIf="isFieldInvalid('productCategory')">
+          Please select product category.
+        </mat-error>
+      </mat-form-field>
+      <div fxFlex="10%"></div>
+      <mat-form-field class="card-full-width" fxFlex="45%">
+        <input matInput placeholder="Product Brand" formControlName="productBrand">
+        <mat-error *ngIf="isFieldInvalid('productBrand')">
+          Please select product brand.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <br>
+    <div fxLayout="row">
+      <mat-form-field class="card-full-width" fxFlex="45%">
+        <input matInput placeholder="Product Name" formControlName="productName">
+        <mat-error *ngIf="isFieldInvalid('productName')">
+          Please select product name.
+        </mat-error>
+      </mat-form-field>
+      <div fxFlex="10%"></div>
+      <mat-form-field class="card-full-width" fxFlex="45%">
+        <input matInput placeholder="Supplier" formControlName="supplierName">
+        <mat-error *ngIf="isFieldInvalid('supplierName')">
+          Please select supplier.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <br>
+    <div fxLayout="row">
+      <mat-form-field class="card-full-width" fxFlex="45%">
+        <input matInput placeholder="Quantity" formControlName="orderQuantity">
+        <mat-error *ngIf="isFieldInvalid('orderQuantity')">
+          Please enter quantity.
+        </mat-error>
+      </mat-form-field>
+      <div fxFlex="10%"></div>
+      <mat-form-field class="card-full-width" fxFlex="45%">
+        <input matInput [matDatepicker]="picker" placeholder="Delivery Date" formControlName="deliveryDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="isFieldInvalid('deliveryDate')">
+          Please enter delivery date.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <mat-form-field class="card-full-width">
+      <input matInput placeholder="Purchasing Price(Per Unit)" formControlName="purchasedPrice">
+      <mat-error *ngIf="isFieldInvalid('purchasedPrice')">
+        Please enter purchasing price.
+      </mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button class="mat-raised-button" (click)="close()">
+      Close
+    </button>
+    <button [disabled]="!form.valid" class="mat-raised-button mat-primary" (click)="update()">
+      Update
+    </button>
+  </mat-dialog-actions>
+</div>

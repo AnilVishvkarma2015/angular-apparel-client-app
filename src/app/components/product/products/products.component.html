@@ -1,12 +1,12 @@
 <div class="table-layout">
   <div>
-    <div fxFlex="50%">
+    <div fxFlex="60%">
       <button mat-raised-button color="primary" type="submit" (click)="addProduct()">Add</button>
       <button mat-raised-button color="primary" type="submit" (click)="downloadPDF()" style="margin-left: 15px;">Download</button>
     </div>
 
-    <div fxFlex="50%" style="text-align: end">
-      <mat-form-field>
+    <div fxFlex="40%" style="text-align: end">
+      <mat-form-field style="width: 55%">
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
       </mat-form-field>
     </div>

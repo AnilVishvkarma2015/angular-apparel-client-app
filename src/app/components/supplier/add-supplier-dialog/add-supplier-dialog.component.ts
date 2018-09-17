@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 
 export class AddSupplierDialogComponent {
-  public country = [{ "countryName": "India" }];
+  public country = [{ countryName: "India" }];
   public states = [{ "stateName": "Maharshtra" }, { "stateName": "Madhya Pradesh" }];
   public cities = [{ "cityName": "Pune" }, { "cityName": "Indore" }, { "cityName": "Ujjain" }];
 

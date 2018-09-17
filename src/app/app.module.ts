@@ -27,7 +27,11 @@ import { SuppliersComponent } from './components/supplier/suppliers/suppliers.co
 import { SuppliersCrudOperationsComponent } from './components/supplier/suppliers-crud-operations/suppliers-crud-operations.component';
 import { AddSupplierDialogComponent } from './components/supplier/add-supplier-dialog/add-supplier-dialog.component';
 import { UpdateSupplierDialogComponent } from './components/supplier/update-supplier-dialog/update-supplier-dialog.component';
-
+import { PurchaseordersComponent } from './components/purchaseorder/purchaseorders/purchaseorders.component';
+import { AddPoDialogComponent } from './components/purchaseorder/add-po-dialog/add-po-dialog.component';
+import { UpdatePoDialogComponent } from './components/purchaseorder/update-po-dialog/update-po-dialog.component';
+import { SupplierService } from './services/supplier.service';
+import { PurchaseorderService } from './services/purchaseorder.service';
 
 @NgModule({
   declarations: [
@@ -44,7 +48,10 @@ import { UpdateSupplierDialogComponent } from './components/supplier/update-supp
     SuppliersComponent,
     SuppliersCrudOperationsComponent,
     AddSupplierDialogComponent,
-    UpdateSupplierDialogComponent
+    UpdateSupplierDialogComponent,
+    PurchaseordersComponent,
+    AddPoDialogComponent,
+    UpdatePoDialogComponent
   ],
   imports: [
     FormsModule,
@@ -61,12 +68,16 @@ import { UpdateSupplierDialogComponent } from './components/supplier/update-supp
     AddProductDialogComponent,
     UpdateProductDialogComponent,
     AddSupplierDialogComponent,
-    UpdateSupplierDialogComponent
+    UpdateSupplierDialogComponent,
+    AddPoDialogComponent,
+    UpdatePoDialogComponent
   ],
   providers: [
     AuthGuard,
     AuthenticationService,
     ProductService,
+    SupplierService,
+    PurchaseorderService,
     UserService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
