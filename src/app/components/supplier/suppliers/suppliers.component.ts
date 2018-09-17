@@ -4,7 +4,6 @@ import { first } from 'rxjs/operators';
 
 import { AddSupplierDialogComponent } from '../add-supplier-dialog/add-supplier-dialog.component';
 import { UpdateSupplierDialogComponent } from '../update-supplier-dialog/update-supplier-dialog.component';
-import { SuppliersCrudOperationsComponent } from '../suppliers-crud-operations/suppliers-crud-operations.component';
 import { Supplier } from '../../../models/supplier.model';
 import { SupplierService } from '../../../services/supplier.service';
 import { ExportPdfService } from '../../../services/export-pdf.service';
@@ -14,7 +13,6 @@ import { ExportPdfService } from '../../../services/export-pdf.service';
   templateUrl: './suppliers.component.html',
   styleUrls: ['./suppliers.component.scss']
 })
-
 export class SuppliersComponent {
   displayedColumns = ['supplierName', 'supplierEmail', 'supplierPhone', 'supplierCity', 'actions'];
   dataSource: MatTableDataSource<Supplier>;
@@ -24,7 +22,6 @@ export class SuppliersComponent {
 
   constructor(public dialog: MatDialog,
     private supplierService: SupplierService,
-    private supplierOperations: SuppliersCrudOperationsComponent,
     private exportPdfService: ExportPdfService) { }
 
   ngAfterViewInit() {
@@ -56,7 +53,7 @@ export class SuppliersComponent {
 
     dialogRef.afterClosed().subscribe(form => {
       if (form) {
-        this.supplierOperations.saveSupplier(form).add(() => {
+        this.supplierService.createSupplier(form).add(() => {
           this.loadSuppliers();
         })
       }
@@ -85,7 +82,7 @@ export class SuppliersComponent {
 
     dialogRef.afterClosed().subscribe(form => {
       if (form) {
-        this.supplierOperations.updateSupplier(form).add(() => {
+        this.supplierService.updateSupplier(form).add(() => {
           this.loadSuppliers();
         })
       }
@@ -93,7 +90,7 @@ export class SuppliersComponent {
   }
 
   deleteSupplier(supplier: Supplier) {
-    this.supplierOperations.deleteSupplier(supplier).add(() => {
+    this.supplierService.deleteSupplier(supplier).add(() => {
       this.loadSuppliers();
     })
   }

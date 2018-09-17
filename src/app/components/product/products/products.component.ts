@@ -4,7 +4,6 @@ import { first } from 'rxjs/operators';
 
 import { AddProductDialogComponent } from '../add-product-dialog/add-product-dialog.component';
 import { UpdateProductDialogComponent } from '../update-product-dialog/update-product-dialog.component';
-import { ProductsCrudOperations } from '../products-crud-operations/products-crud-operations.component';
 import { Product } from '../../../models/product.model';
 import { ProductService } from '../../../services/product.service';
 import { ExportPdfService } from '../../../services/export-pdf.service';
@@ -23,7 +22,6 @@ export class ProductsComponent {
 
   constructor(private productService: ProductService,
     public dialog: MatDialog,
-    private productsOperation: ProductsCrudOperations,
     private exportPdfService: ExportPdfService
   ) { }
 
@@ -55,9 +53,9 @@ export class ProductsComponent {
 
     dialogRef.afterClosed().subscribe(form => {
       if (form) {
-        this.productsOperation.saveProduct(form).add(() => {
+        this.productService.createProduct(form).add(() => {
           this.loadProducts();
-        });
+        })
       }
     });
   }
@@ -82,15 +80,15 @@ export class ProductsComponent {
 
     dialogRef.afterClosed().subscribe(form => {
       if (form) {
-        this.productsOperation.updateProduct(form).add(() => {
+        this.productService.updateProduct(form).add(() => {
           this.loadProducts();
-        })
+        });
       }
     });
   }
 
-  deleteProduct(product: Product) {
-    this.productsOperation.deleteProduct(product).add(() => {
+  deleteProduct(orderToDelete: Product) {
+    this.productService.deleteProduct(orderToDelete).add(() => {
       this.loadProducts();
     });
   }

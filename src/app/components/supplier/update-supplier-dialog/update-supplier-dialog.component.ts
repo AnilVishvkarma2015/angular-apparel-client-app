@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+
 import { Supplier } from '../../../models/supplier.model';
 
 @Component({
@@ -8,10 +9,14 @@ import { Supplier } from '../../../models/supplier.model';
   templateUrl: './update-supplier-dialog.component.html',
   styleUrls: ['./update-supplier-dialog.component.scss']
 })
-
 export class UpdateSupplierDialogComponent {
+  public countryList = ['India'];
   public stateList: Array<any> = [
-    { name: 'Maharashtra', cities: ['Pune', 'Mumbai', 'Nashik'] }
+    { name: 'Maharashtra' },
+    { name: 'Madhya Pradesh' },
+    { name: 'Rajasthan' },
+    { name: 'Bihar' },
+    { name: 'Uttar Pradesh' },
   ];
 
   public cityList: Array<any> = [{ name: "Indore" }];

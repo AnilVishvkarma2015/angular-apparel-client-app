@@ -1,8 +1,9 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { first } from 'rxjs/operators';
+
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
-import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'home.component',

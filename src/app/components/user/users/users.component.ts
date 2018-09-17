@@ -25,6 +25,20 @@ export class UsersComponent {
     this.loadUserRecords();
   }
 
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
+
+  private loadUserRecords() {
+    this.userService.getUsers().pipe(first()).subscribe(users => {
+      this.dataSource = new MatTableDataSource(users);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+  }
+
   downloadPDF() {
     let columns = ["No", "First Name", " Last Name", "Email"];
     let rows = [];
@@ -42,21 +56,6 @@ export class UsersComponent {
         rows.push(userArray);
       }
       this.exportPdfService.exportToPdf(columns, rows, item);
-    });
-
-  }
-
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
-  }
-
-  private loadUserRecords() {
-    this.userService.getUsers().pipe(first()).subscribe(users => {
-      this.dataSource = new MatTableDataSource(users);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
     });
   }
 }

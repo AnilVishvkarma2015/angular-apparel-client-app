@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 import { ToastService } from '../../../services/toast.service';
 import { AuthenticationService } from '../../../services/authentication.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -11,12 +12,14 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  constructor(private router: Router, public toast: ToastService, private authenticationService: AuthenticationService) { }
   loginForm: FormGroup;
   email: FormControl;
   password: FormControl;
   formSubmitAttempt: boolean;
   loading: boolean;
+
+  constructor(private router: Router, public toast: ToastService, private authenticationService: AuthenticationService) { }
+
   ngOnInit() {
     this.createFormControls();
     this.createForm();
@@ -54,17 +57,14 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.formSubmitAttempt = true;
     this.loading = true;
-    console.log("Email ----", this.getFormControls.email.value);
-    console.log("Password ----", this.getFormControls.password.value);
     this.authenticationService.login(this.getFormControls.email.value, this.getFormControls.password.value)
       .pipe(first())
       .subscribe(
         data => {
-          console.log("User Received -----", data);
           this.router.navigate(['users']);
         },
         error => {
-          this.toast.openSnackBar("Invalid Credentials", 'Failure', 'error-snackbar');
+          this.toast.openSnackBar("Invalid Credentials", '', 'error-snackbar');
           this.loading = false;
         });
   }

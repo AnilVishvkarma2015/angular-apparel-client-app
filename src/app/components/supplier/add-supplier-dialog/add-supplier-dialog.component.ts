@@ -9,31 +9,16 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 
 export class AddSupplierDialogComponent {
-  public country = [{ countryName: "India" }];
-  public states = [{ "stateName": "Maharshtra" }, { "stateName": "Madhya Pradesh" }];
-  public cities = [{ "cityName": "Pune" }, { "cityName": "Indore" }, { "cityName": "Ujjain" }];
-
+  public countryList = ['India'];
   public stateList: Array<any> = [
-    { name: 'Maharashtra', cities: ['Pune', 'Mumbai', 'Nashik'] },
-    { name: 'Madhya Pradesh', cities: ['Indore', 'Ujjain', 'Dewas'] },
-    { name: 'Rajasthan', cities: ['Jaipur'] },
-    { name: 'Bihar', cities: ['Mugalsaray'] },
-    { name: 'Uttar Pradesh', cities: ['Kanpur'] },
+    { name: 'Maharashtra' },
+    { name: 'Madhya Pradesh' },
+    { name: 'Rajasthan' },
+    { name: 'Bihar' },
+    { name: 'Uttar Pradesh' },
   ];
 
   public cityList: Array<any> = [{ name: "Indore" }];
-
-  filterChanged(selectedValue: string) {
-    console.log('value is ', selectedValue);
-  }
-  selectedDay: string = '';
-
-  //event handler for the select element's change event
-  selectChangeHandler(event: any) {
-    //update the ui
-    this.selectedDay = event.target.value;
-    console.log("Selected Data ----", this.selectedDay);
-  }
 
   form: FormGroup;
   id: string;

@@ -1,78 +1,86 @@
 <div class="dialog-box-container">
-  <h2 mat-dialog-title style="text-align: center">
-    <b>Add Supplier</b>
+  <h2 mat-dialog-title class="dialog-title">
+    <b>Update Supplier</b>
   </h2>
   <hr class="dialog-title-hr">
   <mat-dialog-content [formGroup]="form">
     <input type="hidden" name="id" formControlName="id">
     <br>
-    <mat-form-field class="card-full-width">
-      <input matInput placeholder="Supplier Name" formControlName="supplierName">
-      <mat-error *ngIf="isFieldInvalid('supplierName')">
-        Please enter supplier name.
-      </mat-error>
-    </mat-form-field>
+    <div fxLayout="row">
+      <mat-form-field fxFlex="45%">
+        <input matInput placeholder="Supplier Name" formControlName="supplierName">
+        <mat-error *ngIf="isFieldInvalid('supplierName')">
+          Please enter supplier name.
+        </mat-error>
+      </mat-form-field>
+      <div fxFlex="10%"></div>
+      <mat-form-field fxFlex="45%">
+        <input matInput placeholder="Supplier Code" formControlName="supplierCode">
+        <mat-error *ngIf="isFieldInvalid('supplierCode')">
+          Please enter supplier code.
+        </mat-error>
+      </mat-form-field>
+    </div>
     <br>
-    <mat-form-field class="card-full-width">
-      <input matInput placeholder="Supplier Code" formControlName="supplierCode">
-      <mat-error *ngIf="isFieldInvalid('supplierCode')">
-        Please enter supplier code.
-      </mat-error>
-    </mat-form-field>
+    <div fxLayout="row">
+      <mat-form-field fxFlex="45%">
+        <input matInput placeholder="Supplier Email" formControlName="supplierEmail">
+        <mat-error *ngIf="isFieldInvalid('supplierEmail')">
+          Please enter supplier email.
+        </mat-error>
+      </mat-form-field>
+      <div fxFlex="10%"></div>
+      <mat-form-field fxFlex="45%">
+        <input matInput placeholder="Supplier Phone" formControlName="supplierPhone">
+        <mat-error *ngIf="isFieldInvalid('supplierPhone')">
+          Please enter supplier phone.
+        </mat-error>
+      </mat-form-field>
+    </div>
     <br>
-    <mat-form-field class="card-full-width">
-      <input matInput placeholder="Supplier Email" formControlName="supplierEmail">
-      <mat-error *ngIf="isFieldInvalid('supplierEmail')">
-        Please enter supplier email.
-      </mat-error>
-    </mat-form-field>
+    <div fxLayout="row">
+      <mat-form-field fxFlex="45%">
+        <mat-select placeholder="Supplier Country" formControlName="supplierCountry">
+          <mat-option *ngFor="let country of countryList" [value]="country">
+            {{ country }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="isFieldInvalid('supplierCountry')">
+          Please select country.
+        </mat-error>
+      </mat-form-field>
+      <div fxFlex="10%"></div>
+      <mat-form-field fxFlex="45%">
+        <mat-select placeholder="Supplier State" formControlName="supplierState">
+          <mat-option *ngFor="let state of stateList" [value]="state.name">
+            {{ state.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="isFieldInvalid('supplierState')">
+          Please select state.
+        </mat-error>
+      </mat-form-field>
+    </div>
     <br>
-    <mat-form-field class="card-full-width">
-      <input matInput placeholder="Supplier Phone" formControlName="supplierPhone">
-      <mat-error *ngIf="isFieldInvalid('supplierPhone')">
-        Please enter supplier phone.
-      </mat-error>
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-      <mat-select placeholder="Supplier Country" formControlName="supplierCountry">
-        <mat-option *ngFor="let country of country" [value]="country.countryName">
-          {{ country.countryName }}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="isFieldInvalid('supplierCountry')">
-        Please enter supplier country.
-      </mat-error>
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-      <mat-select placeholder="Supplier State" formControlName="supplierState" (change)="changeCountry($event.target.value)">
-        <mat-option *ngFor="let state of stateList" [value]="state.name">
-          {{ state.name }}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="isFieldInvalid('supplierState')">
-        Please enter supplier state.
-      </mat-error>
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-      <mat-select placeholder="Supplier City" formControlName="supplierCity">
-        <mat-option *ngFor="let city of cityList" [value]="city.name">
-          {{ city.name }}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="isFieldInvalid('supplierCity')">
-        Please enter supplier city.
-      </mat-error>
-    </mat-form-field>
-    <br>
-    <mat-form-field class="card-full-width">
-      <input matInput placeholder="Supplier Address" formControlName="supplierAddress">
-      <mat-error *ngIf="isFieldInvalid('supplierAddress')">
-        Please enter supplier address.
-      </mat-error>
-    </mat-form-field>
+    <div fxLayout="row">
+      <mat-form-field fxFlex="45%">
+        <mat-select placeholder="Supplier City" formControlName="supplierCity">
+          <mat-option *ngFor="let city of cityList" [value]="city.name">
+            {{ city.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="isFieldInvalid('supplierCity')">
+          Please select city.
+        </mat-error>
+      </mat-form-field>
+      <div fxFlex="10%"></div>
+      <mat-form-field fxFlex="45%">
+        <input matInput placeholder="Supplier Address" formControlName="supplierAddress">
+        <mat-error *ngIf="isFieldInvalid('supplierAddress')">
+          Please enter address.
+        </mat-error>
+      </mat-form-field>
+    </div>
   </mat-dialog-content>
   <mat-dialog-actions>
     <button class="mat-raised-button" (click)="close()">

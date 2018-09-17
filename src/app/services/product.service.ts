@@ -1,54 +1,57 @@
 import { Injectable } from '@angular/core';
-import { throwError } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
+
+import { ToastService } from './toast.service';
+import { UtilityService } from './utility.service';
 import { Product } from '../models/product.model';
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
-
-const baseURL = 'http://localhost:4000/products';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class ProductService {
-  
-  constructor(private http: HttpClient) { }
 
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
-    }
-    // return an observable with a user-facing error message
-    return throwError('Something bad happened; please try again later.');
-  };
+  constructor(private http: HttpClient, private toastService: ToastService, private utility: UtilityService) { }
 
-  createProduct(product: Product) {
-    return this.http.post(baseURL + '/create', product, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
+  createProduct(newProduct: Product) {
+    return this.http.post(this.utility.requestUrl() + 'products/create', newProduct, this.utility.requestHeaders())
+      .subscribe(
+        data => {
+          this.toastService.openSnackBar('Product Created Successfully', '', 'success-snackbar');
+          return data;
+        },
+        error => {
+          catchError(this.utility.handleError);
+          this.toastService.openSnackBar('Product Cannot Created', '', 'error-snackbar');
+        });
   }
 
   getProducts() {
-    return this.http.get<Product[]>(baseURL + '/');
+    return this.http.get<Product[]>(this.utility.requestUrl() + 'products/');
   }
 
-  updateProduct(product: Product) {
-    return this.http.put(baseURL + '/' + product.id, product);
+  updateProduct(updatedProduct: Product) {
+    return this.http.put(this.utility.requestUrl() + 'products/' + updatedProduct.id, updatedProduct)
+      .subscribe(
+        data => {
+          this.toastService.openSnackBar('Product Updated Successfully', '', 'success-snackbar');
+          return data;
+        },
+        error => {
+          catchError(this.utility.handleError);
+          this.toastService.openSnackBar('Product Cannot Updated', '', 'error-snackbar');
+        });
   }
 
-  deleteProduct(product: Product) {
-    return this.http.delete(baseURL + '/' + product.id);
+  deleteProduct(deleteProduct: Product) {
+    return this.http.delete(this.utility.requestUrl() + 'products/' + deleteProduct.id)
+      .subscribe(
+        data => {
+          this.toastService.openSnackBar('Product Deleted Successfully', '', 'success-snackbar');
+        },
+        error => {
+          catchError(this.utility.handleError);
+          this.toastService.openSnackBar('Product Cannot Deleted', '', 'error-snackbar');
+        });
   }
 }
