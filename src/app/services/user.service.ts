@@ -1,48 +1,57 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
 import { User } from '../models/user.model';
-const baseURL = 'http://localhost:4000/users/register';
+import { ToastService } from './toast.service';
+import { UtilityService } from './utility.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  selectedUser: User;
-  constructor(private http: HttpClient) { }
 
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
-    }
-    // return an observable with a user-facing error message
-    return throwError('Something bad happened; please try again later.');
-  };
+  constructor(private http: HttpClient, private toastService: ToastService, private utility: UtilityService) { }
 
-  createUser(user: User) {
-    return this.http.post(baseURL, user, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
+  createUser(newUser: User) {
+    return this.http.post(this.utility.requestUrl() + 'users/register', newUser, this.utility.requestHeaders())
+      .subscribe(
+        data => {
+          this.toastService.openSnackBar('User Created Successfully', '', 'success-snackbar');
+          return data;
+        },
+        error => {
+          catchError(this.utility.handleError);
+          this.toastService.openSnackBar('User Cannot Created', '', 'error-snackbar');
+        });
   }
 
   getUsers() {
-    return this.http.get<User[]>('http://localhost:4000/users');
+    return this.http.get<User[]>(this.utility.requestUrl() + 'users/');
   }
 
-  updateUser(user: User) {
-    return this.http.put('http://localhost:4000/users/' + user.id, user);
+  updateUser(updatedUser: User) {
+    return this.http.put(this.utility.requestUrl() + 'users/' + updatedUser.id, updatedUser)
+      .subscribe(
+        data => {
+          this.toastService.openSnackBar('User Updated Successfully', '', 'success-snackbar');
+          return data;
+        },
+        error => {
+          catchError(this.utility.handleError);
+          this.toastService.openSnackBar('User Cannot Updated', '', 'error-snackbar');
+        });
+  }
+
+  deleteUser(deleteUser: User) {
+    return this.http.delete(this.utility.requestUrl() + 'users/' + deleteUser.id)
+      .subscribe(
+        data => {
+          this.toastService.openSnackBar('User Deleted Successfully', '', 'success-snackbar');
+        },
+        error => {
+          catchError(this.utility.handleError);
+          this.toastService.openSnackBar('User Cannot Deleted', '', 'error-snackbar');
+        });
   }
 }

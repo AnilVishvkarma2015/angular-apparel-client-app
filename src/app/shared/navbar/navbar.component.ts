@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { AuthenticationService } from '../../services/authentication.service';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+
+import { AuthenticationService } from '../../services/authentication.service';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',

@@ -84,7 +84,7 @@ export class PurchaseordersComponent {
       if (form) {
         this.poService.updatePO(form).add(() => {
           this.loadOrders();
-        })
+        });
       }
     })
   }
@@ -92,7 +92,7 @@ export class PurchaseordersComponent {
   deletePO(orderToDelete: PurchaseOrder) {
     this.poService.deletePO(orderToDelete).add(() => {
       this.loadOrders();
-    })
+    });
   }
 
   downloadPDF() {

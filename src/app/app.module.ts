@@ -20,11 +20,9 @@ import { ProductService } from './services/product.service';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { UsersComponent } from './components/user/users/users.component';
 import { ProductsComponent } from './components/product/products/products.component';
-import { ProductsCrudOperations } from './components/product/products-crud-operations/products-crud-operations.component';
 import { AddProductDialogComponent } from './components/product/add-product-dialog/add-product-dialog.component';
 import { UpdateProductDialogComponent } from './components/product/update-product-dialog/update-product-dialog.component';
 import { SuppliersComponent } from './components/supplier/suppliers/suppliers.component';
-import { SuppliersCrudOperationsComponent } from './components/supplier/suppliers-crud-operations/suppliers-crud-operations.component';
 import { AddSupplierDialogComponent } from './components/supplier/add-supplier-dialog/add-supplier-dialog.component';
 import { UpdateSupplierDialogComponent } from './components/supplier/update-supplier-dialog/update-supplier-dialog.component';
 import { PurchaseordersComponent } from './components/purchaseorder/purchaseorders/purchaseorders.component';
@@ -42,11 +40,9 @@ import { PurchaseorderService } from './services/purchaseorder.service';
     NavbarComponent,
     UsersComponent,
     ProductsComponent,
-    ProductsCrudOperations,
     AddProductDialogComponent,
     UpdateProductDialogComponent,
     SuppliersComponent,
-    SuppliersCrudOperationsComponent,
     AddSupplierDialogComponent,
     UpdateSupplierDialogComponent,
     PurchaseordersComponent,

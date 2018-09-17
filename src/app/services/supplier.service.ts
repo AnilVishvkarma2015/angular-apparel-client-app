@@ -1,54 +1,57 @@
 import { Injectable } from '@angular/core';
-import { throwError } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
+
 import { Supplier } from '../models/supplier.model';
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
-
-const baseURL = 'http://localhost:4000/suppliers';
+import { ToastService } from './toast.service';
+import { UtilityService } from './utility.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SupplierService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private toastService: ToastService, private utility: UtilityService) { }
 
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
-    }
-    // return an observable with a user-facing error message
-    return throwError('Something bad happened; please try again later.');
-  };
-
-  createSupplier(supplier: Supplier) {
-    return this.http.post(baseURL + '/create', supplier, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
+  createSupplier(newSupplier: Supplier) {
+    return this.http.post(this.utility.requestUrl() + 'suppliers/create', newSupplier, this.utility.requestHeaders())
+      .subscribe(
+        data => {
+          this.toastService.openSnackBar('Supplier Created Successfully', '', 'success-snackbar');
+          return data;
+        },
+        error => {
+          catchError(this.utility.handleError);
+          this.toastService.openSnackBar('Supplier Cannot Created', '', 'error-snackbar');
+        });
   }
 
   getSuppliers() {
-    console.log("---- get Suppliers result ---");
-    return this.http.get<Supplier[]>(baseURL + '/');
+    return this.http.get<Supplier[]>(this.utility.requestUrl() + 'suppliers/');
   }
 
-  updateSupplier(supplier: Supplier) {
-    return this.http.put(baseURL + '/' + supplier.id, supplier);
+  updateSupplier(updatedSupplier: Supplier) {
+    return this.http.put(this.utility.requestUrl() + 'suppliers/' + updatedSupplier.id, updatedSupplier)
+      .subscribe(
+        data => {
+          this.toastService.openSnackBar('Supplier Updated Successfully', '', 'success-snackbar');
+          return data;
+        },
+        error => {
+          catchError(this.utility.handleError);
+          this.toastService.openSnackBar('Supplier Cannot Updated', '', 'error-snackbar');
+        });
   }
 
-  deleteSupplier(supplier: Supplier) {
-    return this.http.delete(baseURL + '/' + supplier.id);
+  deleteSupplier(deleteSupplier: Supplier) {
+    return this.http.delete(this.utility.requestUrl() + 'suppliers/' + deleteSupplier.id)
+      .subscribe(
+        data => {
+          this.toastService.openSnackBar('Supplier Deleted Successfully', '', 'success-snackbar');
+        },
+        error => {
+          catchError(this.utility.handleError);
+          this.toastService.openSnackBar('Supplier Cannot Deleted', '', 'error-snackbar');
+        });
   }
 }
