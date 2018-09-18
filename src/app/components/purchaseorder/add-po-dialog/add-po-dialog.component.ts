@@ -3,8 +3,7 @@ import { MatDialogRef } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import * as _ from 'underscore';
 
-import { SupplierService } from '../../../services/supplier.service';
-import { ProductService } from '../../../services/product.service';
+import { CommonSelectDropdownService } from '../../../services/common-select-dropdown.service';
 
 @Component({
   selector: 'app-add-po-dialog',
@@ -12,10 +11,10 @@ import { ProductService } from '../../../services/product.service';
   styleUrls: ['./add-po-dialog.component.scss']
 })
 export class AddPoDialogComponent {
-  public suppliers: Array<any> = [];
-  public productCategories: Array<string> = [];
-  public productBrands: Array<string> = [];
-  public productNames: Array<string> = [];
+  public supplierNames: string[] = [];
+  public productCategories: string[] = [];
+  public productBrands: {};
+  public productNames: {};
 
   form: FormGroup;
   id: string;
@@ -31,8 +30,7 @@ export class AddPoDialogComponent {
 
   constructor(private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<AddPoDialogComponent>,
-    private supplierService: SupplierService,
-    private productService: ProductService) {
+    private dropdownService: CommonSelectDropdownService) {
 
     this.form = this.formBuilder.group({
       id: [""],
@@ -47,50 +45,32 @@ export class AddPoDialogComponent {
       purchasedPrice: [0],
     })
 
-    this.setSupplierOptions();
     this.setProductCategoryOptions();
+    this.setSupplierOptions();
   }
 
   setSupplierOptions() {
-    this.supplierService.getSuppliers().subscribe(suppliers => {
-      this.suppliers = suppliers;
+    this.dropdownService.setSupplierOptions().then(suppliers => {
+      Array.prototype.push.apply(this.supplierNames, suppliers);
     })
   }
 
   setProductCategoryOptions() {
-    return this.productService.getProducts().subscribe(products => {
-      let productCategory = [];
-      _.each(products, function (product) {
-        productCategory.push(product.productCategory);
-      });
-      this.productCategories = _.uniq(productCategory);
-    })
+    this.dropdownService.setProductCategoryOptions().then(categories => {
+      Array.prototype.push.apply(this.productCategories, categories);
+    });
   }
 
-  setProductBrandOptions(categorySelected: String) {
-    this.productService.getProducts().subscribe(products => {
-      let productBrand = [];
-      _.each(_.filter(products, function (product) {
-        return product.productCategory == categorySelected;
-      }), function (product) {
-        productBrand.push(product.productBrand);
-      });
-
-      this.productBrands = _.uniq(productBrand);
-    })
+  setProductBrandOptions(categorySelected) {
+    this.dropdownService.setProductBrandOptions(categorySelected).then(brands => {
+      this.productBrands = (brands);
+    });
   }
 
-  setProductNameOptions(brandSelected: String) {
-    this.productService.getProducts().subscribe(products => {
-      let productName = [];
-      _.each(_.filter(products, function (product) {
-        return product.productBrand == brandSelected;
-      }), function (product) {
-        productName.push(product.productName);
-      });
-
-      this.productNames = _.uniq(productName);
-    })
+  setProductNameOptions(brandSelected) {
+    this.dropdownService.setProductNameOptions(brandSelected).then(names => {
+      this.productNames = names;
+    });
   }
 
   isFieldInvalid(field: string) {
@@ -107,5 +87,4 @@ export class AddPoDialogComponent {
   close() {
     this.dialogRef.close();
   }
-
 }
