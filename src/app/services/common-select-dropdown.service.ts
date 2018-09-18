@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import * as _ from 'underscore';
 
 import { ProductService } from './product.service';
@@ -12,35 +11,59 @@ export class CommonSelectDropdownService {
 
   constructor(private productService: ProductService, private supplierService: SupplierService) { }
 
-  returnData(): string[] {
-    let data: Array<string> = ['Data1', 'Data2', 'Data3', 'Data4', 'Data5'];
-    return data;
+  setSupplierOptions() {
+    return new Promise((resolve, reject) => {
+      let suppliersList: string[] = [];
+      return this.supplierService.getSuppliers().subscribe(suppliers => {
+        _.each(suppliers, function (supplier) {
+          suppliersList.push(supplier.supplierName);
+        })
+        resolve(_.uniq(suppliersList));
+        reject(new Error(`Cannot load Product Category`));
+      });
+    });
   }
 
   setProductCategoryOptions() {
-    console.log("category called ");
-    let productCategory: string[] = [];
-    return this.productService.getProducts().subscribe(products => {
-      /*  _.each(products, function (product) {
-         productCategory.push(product.productCategory);
-       });
-       console.log("category called juniq ---", _.uniq(productCategory));
-       return _.uniq(productCategory); */
-      return products;
-    })
+    return new Promise((resolve, reject) => {
+      let productCategpryList: string[] = [];
+      return this.productService.getProducts().subscribe(products => {
+        _.each(products, function (product) {
+          productCategpryList.push(product.productCategory);
+        })
+        resolve(_.uniq(productCategpryList));
+        reject(new Error(`Cannot load Product Category`));
+      });
+    });
   }
 
   setProductBrandOptions(categorySelected) {
-    console.log("Category Selected ----", categorySelected);
-    this.productService.getProducts().subscribe(products => {
-      console.log("Products Selected ----", products);
-      let productBrand = [];
-      /*  _.each(_.filter(products, function (product) {
-         product.productCategory == categorySelected;
-       }), function (product) {
-         productBrand.push(product.productBrand);
-       });
-       return _.uniq(productBrand); */
-    })
+    return new Promise((resolve, reject) => {
+      let productBrandList: string[] = [];
+      return this.productService.getProducts().subscribe(products => {
+        _.each(products, function (product) {
+          if (product.productCategory === categorySelected) {
+            productBrandList.push(product.productBrand);
+          }
+        });
+        resolve(_.uniq(productBrandList));
+        reject(new Error(`Cannot load Product Brand`));
+      });
+    });
+  }
+
+  setProductNameOptions(brandSelected) {
+    return new Promise((resolve, reject) => {
+      let productNameList: string[] = [];
+      return this.productService.getProducts().subscribe(products => {
+        _.each(products, function (product) {
+          if (product.productBrand === brandSelected) {
+            productNameList.push(product.productName);
+          }
+        });
+        resolve(_.uniq(productNameList));
+        reject(new Error(`Cannot load Product Name`));
+      });
+    });
   }
 }

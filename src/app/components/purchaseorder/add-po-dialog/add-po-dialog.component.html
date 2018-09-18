@@ -54,8 +54,8 @@
       <div fxFlex="10%"></div>
       <mat-form-field fxFlex="45%">
         <mat-select placeholder="Supplier" formControlName="supplierName">
-          <mat-option *ngFor="let supplier of suppliers" [value]="supplier.supplierName">
-            {{ supplier.supplierName }}
+          <mat-option *ngFor="let supplier of supplierNames" [value]="supplier">
+            {{ supplier }}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="isFieldInvalid('supplierName')">

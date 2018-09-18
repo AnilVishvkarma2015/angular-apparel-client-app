@@ -27,6 +27,7 @@ export class UserService {
   }
 
   getUsers() {
+
     return this.http.get<User[]>(this.utility.requestUrl() + 'users/');
   }
 
