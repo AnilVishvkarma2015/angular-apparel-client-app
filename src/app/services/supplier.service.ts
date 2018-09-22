@@ -5,16 +5,18 @@ import { catchError } from 'rxjs/operators';
 import { Supplier } from '../models/supplier.model';
 import { ToastService } from './toast.service';
 import { UtilityService } from './utility.service';
+import { AppConfig } from '../config/app.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SupplierService {
+  apiBaseURL = AppConfig.settings.apiServer.baseURL;
 
   constructor(private http: HttpClient, private toastService: ToastService, private utility: UtilityService) { }
 
   createSupplier(newSupplier: Supplier) {
-    return this.http.post(this.utility.requestUrl() + 'suppliers/create', newSupplier, this.utility.requestHeaders())
+    return this.http.post(this.apiBaseURL + 'suppliers/create', newSupplier, this.utility.requestHeaders())
       .subscribe(
         data => {
           this.toastService.openSnackBar('Supplier Created Successfully', '', 'success-snackbar');
@@ -27,11 +29,11 @@ export class SupplierService {
   }
 
   getSuppliers() {
-    return this.http.get<Supplier[]>(this.utility.requestUrl() + 'suppliers/');
+    return this.http.get<Supplier[]>(this.apiBaseURL + 'suppliers/');
   }
 
   updateSupplier(updatedSupplier: Supplier) {
-    return this.http.put(this.utility.requestUrl() + 'suppliers/' + updatedSupplier.id, updatedSupplier)
+    return this.http.put(this.apiBaseURL + 'suppliers/' + updatedSupplier.id, updatedSupplier)
       .subscribe(
         data => {
           this.toastService.openSnackBar('Supplier Updated Successfully', '', 'success-snackbar');
@@ -44,7 +46,7 @@ export class SupplierService {
   }
 
   deleteSupplier(deleteSupplier: Supplier) {
-    return this.http.delete(this.utility.requestUrl() + 'suppliers/' + deleteSupplier.id)
+    return this.http.delete(this.apiBaseURL + 'suppliers/' + deleteSupplier.id)
       .subscribe(
         data => {
           this.toastService.openSnackBar('Supplier Deleted Successfully', '', 'success-snackbar');

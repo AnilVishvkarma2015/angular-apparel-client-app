@@ -4,10 +4,8 @@ export interface AppConfigInterface {
     };
     logging: {
         console: boolean;
-        appInsights: boolean;
     };
     apiServer: {
-        metadata: string;
-        rules: string;
+        baseURL: string;
     };
 }

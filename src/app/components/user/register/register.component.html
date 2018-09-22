@@ -1,12 +1,8 @@
-<!-- <div style="height: 550px;"> -->
 <mat-card class="register-card">
-  <mat-toolbar color="accent" class="card-toolbar">
-    <span class="title-center">USER REGISTRATION</span>
-  </mat-toolbar>
-
-  <mat-card-content>
+  <mat-card-title class="card-title">USER REGISTRATION</mat-card-title>
+  <hr class="dialog-title-hr">
+  <mat-card-content style="margin-top: 20px;">
     <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm)">
-     <!--  <input type="hidden" name="id" formControlName="userService.selectedUser.id"> -->
       <table class="card-full-width" cellspacing="0">
         <tr>
           <td>
@@ -41,7 +37,8 @@
         <tr>
           <td>
             <mat-form-field class="card-full-width">
-              <input matInput placeholder="Password" formControlName="password" type="password" name="password" required>
+              <input matInput placeholder="Password" formControlName="password" type="password" name="password"
+                required>
               <mat-error *ngIf="isFieldInvalid('password')">
                 Please enter password
               </mat-error>
@@ -55,4 +52,3 @@
     </form>
   </mat-card-content>
 </mat-card>
-<!-- </div> -->

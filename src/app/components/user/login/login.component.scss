@@ -1,46 +1,23 @@
 @import url(https://fonts.googleapis.com/css?family=Passion+One);
-
-.example-icon {
-    padding: 0 14px;
-}
-  
-.example-spacer {
-  flex: 1 1 auto;
-}
   
   .login-card {
     max-width: 300px;
     height: 230px;
-    margin: 150px auto auto auto;
-    border-radius: 8px;
+    margin: 150px auto auto auto;   
   }
 
-  .header {
-    align-items: center;
-  }
-
-  .card-toolbar {
+  .card-title {
     font-family: 'Passion One', cursive;
-	font-size: 30px;
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 25px;
   }
 
   .card-full-width {
     width: 100%;
   }
 
-  mat-card > mat-toolbar {
-    margin: -24px 0px 24px -24px;
-    width: calc(100% + 48px);
-    height: 60px;
-    border-radius: 8px 8px 0px 0px;
-  }
-
-  .title-center {
-    flex: 1 1 auto;
-    text-align: center;
-  }
-
-  mat-card-actions{
+  mat-card-actions {
     margin: 0 auto;
   }
 

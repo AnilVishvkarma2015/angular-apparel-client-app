@@ -7,8 +7,6 @@ import { throwError } from 'rxjs';
 })
 export class UtilityService {
 
-
-
   constructor() { }
 
   handleError(error: HttpErrorResponse) {
@@ -31,10 +29,5 @@ export class UtilityService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }
     return httpOptions;
-  }
-
-  requestUrl() {
-    const baseURL = 'https://r-shop-server-app.herokuapp.com/'
-    return baseURL;
   }
 }

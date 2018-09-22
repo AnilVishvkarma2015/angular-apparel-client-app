@@ -5,16 +5,18 @@ import { catchError } from 'rxjs/operators';
 import { User } from '../models/user.model';
 import { ToastService } from './toast.service';
 import { UtilityService } from './utility.service';
+import { AppConfig } from '../config/app.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  apiBaseURL = AppConfig.settings.apiServer.baseURL;
 
   constructor(private http: HttpClient, private toastService: ToastService, private utility: UtilityService) { }
 
   createUser(newUser: User) {
-    return this.http.post(this.utility.requestUrl() + 'users/register', newUser, this.utility.requestHeaders())
+    return this.http.post(this.apiBaseURL + 'users/register', newUser, this.utility.requestHeaders())
       .subscribe(
         data => {
           this.toastService.openSnackBar('User Created Successfully', '', 'success-snackbar');
@@ -27,12 +29,11 @@ export class UserService {
   }
 
   getUsers() {
-
-    return this.http.get<User[]>(this.utility.requestUrl() + 'users/');
+    return this.http.get<User[]>(this.apiBaseURL + 'users/');
   }
 
   updateUser(updatedUser: User) {
-    return this.http.put(this.utility.requestUrl() + 'users/' + updatedUser.id, updatedUser)
+    return this.http.put(this.apiBaseURL + 'users/' + updatedUser.id, updatedUser)
       .subscribe(
         data => {
           this.toastService.openSnackBar('User Updated Successfully', '', 'success-snackbar');
@@ -45,7 +46,7 @@ export class UserService {
   }
 
   deleteUser(deleteUser: User) {
-    return this.http.delete(this.utility.requestUrl() + 'users/' + deleteUser.id)
+    return this.http.delete(this.apiBaseURL + 'users/' + deleteUser.id)
       .subscribe(
         data => {
           this.toastService.openSnackBar('User Deleted Successfully', '', 'success-snackbar');
