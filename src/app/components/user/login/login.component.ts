@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgForm, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { ToastService } from '../../../services/toast.service';
 import { AuthenticationService } from '../../../services/authentication.service';
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
 
-  onSubmit() {
+  onSubmit(form: any) {
     this.formSubmitAttempt = true;
     this.loading = true;
     this.authenticationService.login(this.getFormControls.email.value, this.getFormControls.password.value)

@@ -34,7 +34,7 @@ export class UtilityService {
   }
 
   requestUrl() {
-    const baseURL = 'http://localhost:4000/'
+    const baseURL = 'https://r-shop-server-app.herokuapp.com/'
     return baseURL;
   }
 }

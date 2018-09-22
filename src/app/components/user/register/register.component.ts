@@ -62,7 +62,7 @@ export class RegisterComponent implements OnInit {
     );
   }
 
-  onSubmit(form: NgForm) {
+  onSubmit(form: any) {
     this.formSubmitAttempt = true;
     this.userService.createUser(form.value).add(() => {
       this.toast.openSnackBar('User Registered Successfully', '', 'success-snackbar');
