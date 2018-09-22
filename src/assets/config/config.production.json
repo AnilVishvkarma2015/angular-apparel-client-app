@@ -1,0 +1,13 @@
+{
+    "env": {
+        "name": "deploy"
+    },
+    "logging": {
+        "console": true,
+        "appInsights": true
+    },
+    "apiServer": {
+        "metadata": "https://production.demo.com/api/v1.0/",
+        "rule": "https://production.demo.com/api/v1.0/"
+    }
+}

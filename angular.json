@@ -51,6 +51,23 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true
+            },
+            "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
             }
           }
         },
@@ -62,6 +79,9 @@
           "configurations": {
             "production": {
               "browserTarget": "angular-apparel-client-app:build:production"
+            },
+            "development": {
+              "browserTarget": "angular-apparel-client-app:build:development"
             }
           }
         },
