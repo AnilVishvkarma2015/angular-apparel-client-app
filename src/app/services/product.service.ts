@@ -5,16 +5,18 @@ import { catchError } from 'rxjs/operators';
 import { ToastService } from './toast.service';
 import { UtilityService } from './utility.service';
 import { Product } from '../models/product.model';
+import { AppConfig } from '../config/app.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
+  apiBaseURL = AppConfig.settings.apiServer.baseURL;
 
   constructor(private http: HttpClient, private toastService: ToastService, private utility: UtilityService) { }
 
   createProduct(newProduct: Product) {
-    return this.http.post(this.utility.requestUrl() + 'products/create', newProduct, this.utility.requestHeaders())
+    return this.http.post(this.apiBaseURL + 'products/create', newProduct, this.utility.requestHeaders())
       .subscribe(
         data => {
           this.toastService.openSnackBar('Product Created Successfully', '', 'success-snackbar');
@@ -27,11 +29,11 @@ export class ProductService {
   }
 
   getProducts() {
-    return this.http.get<Product[]>(this.utility.requestUrl() + 'products/');
+    return this.http.get<Product[]>(this.apiBaseURL + 'products/');
   }
 
   updateProduct(updatedProduct: Product) {
-    return this.http.put(this.utility.requestUrl() + 'products/' + updatedProduct.id, updatedProduct)
+    return this.http.put(this.apiBaseURL + 'products/' + updatedProduct.id, updatedProduct)
       .subscribe(
         data => {
           this.toastService.openSnackBar('Product Updated Successfully', '', 'success-snackbar');
@@ -44,7 +46,7 @@ export class ProductService {
   }
 
   deleteProduct(deleteProduct: Product) {
-    return this.http.delete(this.utility.requestUrl() + 'products/' + deleteProduct.id)
+    return this.http.delete(this.apiBaseURL + 'products/' + deleteProduct.id)
       .subscribe(
         data => {
           this.toastService.openSnackBar('Product Deleted Successfully', '', 'success-snackbar');

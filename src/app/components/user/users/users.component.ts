@@ -5,7 +5,6 @@ import { first } from 'rxjs/operators';
 import { User } from '../../../models/user.model';
 import { UserService } from '../../../services/user.service';
 import { ExportPdfService } from '../../../services/export-pdf.service';
-import { AppConfig } from '../../../config/app.config';
 
 @Component({
   selector: 'users.component',
@@ -22,10 +21,7 @@ export class UsersComponent {
 
   api_root: string;
 
-  constructor(private userService: UserService, private exportPdfService: ExportPdfService, private config: AppConfig) {
-    const apiServer = AppConfig.settings.apiServer;
-    console.log("this.api_root -----------", apiServer);
-  }
+  constructor(private userService: UserService, private exportPdfService: ExportPdfService) { }
 
   ngAfterViewInit() {
     this.loadUserRecords();

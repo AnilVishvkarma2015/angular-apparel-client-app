@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { UtilityService } from './utility.service';
+import { AppConfig } from '../config/app.config';
 
 @Injectable({
     providedIn: 'root'
@@ -12,8 +12,10 @@ import { UtilityService } from './utility.service';
 export class AuthenticationService {
     userAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasToken());
     currentUserSubject = new BehaviorSubject<string>(this.hasCurrentUser());
+    apiBaseURL = AppConfig.settings.apiServer.baseURL;
 
-    constructor(private http: HttpClient, private router: Router, private utility: UtilityService) { }
+
+    constructor(private http: HttpClient, private router: Router) { }
 
     private hasToken(): boolean {
         return !!localStorage.getItem('currentUser');
@@ -35,7 +37,7 @@ export class AuthenticationService {
     }
 
     login(email: string, password: string) {
-        return this.http.post<any>(this.utility.requestUrl() + 'users/authenticate', { email: email, password: password })
+        return this.http.post<any>(this.apiBaseURL + 'users/authenticate', { email: email, password: password })
             .pipe(map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {

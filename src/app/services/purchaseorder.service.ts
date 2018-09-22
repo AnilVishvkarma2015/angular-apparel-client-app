@@ -5,16 +5,18 @@ import { catchError } from 'rxjs/operators';
 import { PurchaseOrder } from '../models/purchaseorder.model';
 import { ToastService } from './toast.service';
 import { UtilityService } from './utility.service';
+import { AppConfig } from '../config/app.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PurchaseorderService {
+  apiBaseURL = AppConfig.settings.apiServer.baseURL;
 
   constructor(private http: HttpClient, private toastService: ToastService, private utility: UtilityService) { }
 
   createPO(newOrder: PurchaseOrder) {
-    return this.http.post(this.utility.requestUrl() + 'purchaseorders/create', newOrder, this.utility.requestHeaders())
+    return this.http.post(this.apiBaseURL + 'purchaseorders/create', newOrder, this.utility.requestHeaders())
       .subscribe(
         data => {
           this.toastService.openSnackBar('Order Created Successfully', '', 'success-snackbar');
@@ -27,11 +29,11 @@ export class PurchaseorderService {
   }
 
   getPOs() {
-    return this.http.get<PurchaseOrder[]>(this.utility.requestUrl() + 'purchaseorders/');
+    return this.http.get<PurchaseOrder[]>(this.apiBaseURL + 'purchaseorders/');
   }
 
   updatePO(updatedOrder: PurchaseOrder) {
-    return this.http.put(this.utility.requestUrl() + 'purchaseorders/' + updatedOrder.id, updatedOrder)
+    return this.http.put(this.apiBaseURL + 'purchaseorders/' + updatedOrder.id, updatedOrder)
       .subscribe(
         data => {
           this.toastService.openSnackBar('Order Updated Successfully', '', 'success-snackbar');
@@ -44,7 +46,7 @@ export class PurchaseorderService {
   }
 
   deletePO(deleteOrder: PurchaseOrder) {
-    return this.http.delete(this.utility.requestUrl() + 'purchaseorders/' + deleteOrder.id)
+    return this.http.delete(this.apiBaseURL + 'purchaseorders/' + deleteOrder.id)
       .subscribe(
         data => {
           this.toastService.openSnackBar('Order Deleted Successfully', '', 'success-snackbar');

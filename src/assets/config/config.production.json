@@ -1,13 +1,11 @@
 {
     "env": {
-        "name": "deploy"
+        "name": "production"
     },
     "logging": {
-        "console": true,
-        "appInsights": true
+        "console": true
     },
     "apiServer": {
-        "metadata": "https://production.demo.com/api/v1.0/",
-        "rule": "https://production.demo.com/api/v1.0/"
+        "baseURL": "https://r-shop-server-app.herokuapp.com/"
     }
 }
