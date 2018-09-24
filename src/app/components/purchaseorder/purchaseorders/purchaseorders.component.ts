@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatDialog, MatDialogConfig } from '@angular/material';
-import { first } from 'rxjs/operators';
+import { first, finalize } from 'rxjs/operators';
 
 import { PurchaseorderService } from '../../../services/purchaseorder.service';
 import { PurchaseOrder } from '../../../models/purchaseorder.model';
@@ -17,6 +17,7 @@ export class PurchaseordersComponent {
   displayedColumns = ['orderNumber', 'orderStatus', 'productName', 'supplierName', 'orderQuantity', 'actions'];
   dataSource: MatTableDataSource<PurchaseOrder>;
   PurchaseOrders: PurchaseOrder[] = [];
+  isLoading = true;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -36,11 +37,13 @@ export class PurchaseordersComponent {
   }
 
   private loadOrders() {
-    this.poService.getPOs().pipe(first()).subscribe(orders => {
-      this.dataSource = new MatTableDataSource(orders);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    });
+    this.poService.getPOs().pipe(
+      finalize(() => this.isLoading = false))
+      .subscribe(orders => {
+        this.dataSource = new MatTableDataSource(orders);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
   }
 
   addPO() {

@@ -12,36 +12,41 @@
     </div>
   </div>
 
-  <div class="mat-elevation-z8">
-    <mat-table [dataSource]="dataSource" matSort>
+  <div class="res-table-container mat-elevation-z8">
+    <mat-table #table [dataSource]="dataSource" matSort [class.isMobile]="isMobile">
 
       <!-- Product Name Column -->
       <ng-container matColumnDef="productName">
         <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Product Name </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.productName}} </mat-cell>
+        <mat-cell *matCellDef="let row"> <span class="mobile-label">Product Name: </span> {{row.productName}}
+        </mat-cell>
       </ng-container>
 
       <!-- Progress Column -->
       <ng-container matColumnDef="productBrand">
         <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Product Brand </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.productBrand}} </mat-cell>
+        <mat-cell *matCellDef="let row"> <span class="mobile-label">Product Brand: </span> {{row.productBrand}}
+        </mat-cell>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="productCategory">
         <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Product Category </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.productCategory}} </mat-cell>
+        <mat-cell *matCellDef="let row"> <span class="mobile-label">Product Category: </span> {{row.productCategory}}
+        </mat-cell>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="productBarcode">
         <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Product Barcode </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.productBarcode}} </mat-cell>
+        <mat-cell *matCellDef="let row"><span class="mobile-label">Product Barcode:</span> {{row.productBarcode}}
+        </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef class="header-cell"> Actions </mat-header-cell>
         <mat-cell *matCellDef="let row">
+          <span class="mobile-label">Actions: </span>
           <a class="action-btn" (click)="updateProduct(row)">
             <mat-icon>edit</mat-icon>
           </a>
@@ -55,6 +60,11 @@
       <mat-row *matRowDef="let row; columns: displayedColumns;">
       </mat-row>
     </mat-table>
+
+    <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
+      <mat-progress-spinner color="primary" mode="indeterminate">
+      </mat-progress-spinner>
+    </div>
 
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
   </div>

@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatDialog, MatDialogConfig } from '@angular/material';
-import { first } from 'rxjs/operators';
+import { first, finalize } from 'rxjs/operators';
 
 import { AddProductDialogComponent } from '../add-product-dialog/add-product-dialog.component';
 import { UpdateProductDialogComponent } from '../update-product-dialog/update-product-dialog.component';
@@ -10,13 +10,13 @@ import { ExportPdfService } from '../../../services/export-pdf.service';
 
 @Component({
   selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  templateUrl: './products.component.html'
 })
 export class ProductsComponent {
   displayedColumns = ['productName', 'productBrand', 'productCategory', 'productBarcode', 'actions'];
   dataSource: MatTableDataSource<Product>;
   Products: Product[] = [];
+  isLoading = true;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -36,11 +36,13 @@ export class ProductsComponent {
   }
 
   private loadProducts() {
-    this.productService.getProducts().pipe(first()).subscribe(products => {
-      this.dataSource = new MatTableDataSource(products);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    });
+    this.productService.getProducts().pipe(
+      finalize(() => this.isLoading = false))
+      .subscribe(products => {
+        this.dataSource = new MatTableDataSource(products);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
   }
 
   addProduct() {
