@@ -7,7 +7,6 @@ import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'home.component',
-  styleUrls: ['home.component.scss'],
   templateUrl: 'home.component.html',
 })
 export class HomeComponent {
