@@ -1,14 +1,14 @@
 <div class="table-layout">
   <div>
     <div fxFlex="50%" style="text-align: end">
-      <mat-form-field align="end">
+      <mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
       </mat-form-field>
     </div>
   </div>
 
   <div class="res-table-container mat-elevation-z8">
-    <mat-table #table [dataSource]="dataSource" matSort [class.isMobile]="isMobile">
+    <mat-table #table [dataSource]="dataSource" matSort>
 
       <!-- ID Column -->
       <ng-container matColumnDef="firstName">
