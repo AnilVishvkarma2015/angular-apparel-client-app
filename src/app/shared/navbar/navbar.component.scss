@@ -19,7 +19,7 @@
   }
 
   .sidenav-container {
-    height: 100%;
+    height: auto;
   }
 
   a {
@@ -29,6 +29,7 @@
   
   .sidenav {
     width: 200px;
+    position:absolute;
     box-shadow: 3px 20px 16px rgba(0,0,0,.24);
   }
 
