@@ -14,7 +14,7 @@ export class AuthenticationService {
     userAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasToken());
     currentUserSubject = new BehaviorSubject<string>(this.hasCurrentUser());
     apiBaseURL = AppConfig.settings.apiServer.baseURL;
-    
+
     constructor(private http: HttpClient, private router: Router) { }
 
     private hasToken(): boolean {
@@ -43,12 +43,20 @@ export class AuthenticationService {
         return;
     }
 
-    getTokenExpirationDate(token: string): Date {
-        const decoded = jwt_decode(token);
+    getDecodedToken(token: string): any {
+        try {
+            return jwt_decode(token);
+        }
+        catch (Error) {
+            return null;
+        }
+    }
 
-        if (decoded.exp === undefined) return null;
+    getTokenExpirationDate(token: string): Date {
+        const decodedToken = this.getDecodedToken(token);
+        if (decodedToken.exp === undefined) return null;
         const date = new Date(0);
-        date.setUTCSeconds(decoded.exp);
+        date.setUTCSeconds(decodedToken.exp);
         return date;
     }
 

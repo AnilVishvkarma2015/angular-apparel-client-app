@@ -5,6 +5,7 @@ import { first, finalize } from 'rxjs/operators';
 import { User } from '../../../models/user.model';
 import { UserService } from '../../../services/user.service';
 import { ExportPdfService } from '../../../services/export-pdf.service';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'users.component',
@@ -21,7 +22,9 @@ export class UsersComponent {
 
   api_root: string;
 
-  constructor(private userService: UserService, private exportPdfService: ExportPdfService) { }
+  constructor(private userService: UserService,
+    private exportPdfService: ExportPdfService,
+    private toastService: ToastService) { }
 
   ngAfterViewInit() {
     this.loadUserRecords();
@@ -40,6 +43,9 @@ export class UsersComponent {
         this.dataSource = new MatTableDataSource(users);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+      }, err => {
+        this.toastService.openSnackBar('Data Loading Error: ' + err.status + ' - ' + err.statusText, '', 'error-snackbar');
+        throw err;
       });
   }
 

@@ -1,19 +1,17 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatDialog, MatDialogConfig } from '@angular/material';
 import { first, finalize } from 'rxjs/operators';
-import { Router } from '@angular/router';
 
 import { PurchaseorderService } from '../../../services/purchaseorder.service';
 import { PurchaseOrder } from '../../../models/purchaseorder.model';
 import { ExportPdfService } from '../../../services/export-pdf.service';
 import { AddPoDialogComponent } from '../add-po-dialog/add-po-dialog.component';
 import { UpdatePoDialogComponent } from '../update-po-dialog/update-po-dialog.component';
-import { AuthenticationService } from '../../../services/authentication.service';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-purchaseorders',
-  templateUrl: './purchaseorders.component.html',
-  styleUrls: ['./purchaseorders.component.scss']
+  templateUrl: './purchaseorders.component.html'
 })
 export class PurchaseordersComponent {
   displayedColumns = ['orderNumber', 'orderStatus', 'productName', 'supplierName', 'orderQuantity', 'actions'];
@@ -26,8 +24,7 @@ export class PurchaseordersComponent {
   constructor(private poService: PurchaseorderService,
     public dialog: MatDialog,
     private exportPdfService: ExportPdfService,
-    private router: Router,
-    private authService: AuthenticationService
+    private toastService: ToastService
   ) { }
 
   ngAfterViewInit() {
@@ -47,11 +44,10 @@ export class PurchaseordersComponent {
         this.dataSource = new MatTableDataSource(orders);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-      },
-        err => {
-          this.authService.logout();
-          this.router.navigate(['/login']);
-        });
+      }, err => {
+        this.toastService.openSnackBar('Data Loading Error: ' + err.status + ' - ' + err.statusText, '', 'error-snackbar');
+        throw err;
+      });
   }
 
   addPO() {

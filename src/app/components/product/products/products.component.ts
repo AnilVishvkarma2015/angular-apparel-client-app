@@ -7,6 +7,7 @@ import { UpdateProductDialogComponent } from '../update-product-dialog/update-pr
 import { Product } from '../../../models/product.model';
 import { ProductService } from '../../../services/product.service';
 import { ExportPdfService } from '../../../services/export-pdf.service';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-products',
@@ -22,7 +23,8 @@ export class ProductsComponent {
 
   constructor(private productService: ProductService,
     public dialog: MatDialog,
-    private exportPdfService: ExportPdfService
+    private exportPdfService: ExportPdfService,
+    private toastService: ToastService
   ) { }
 
   ngAfterViewInit() {
@@ -42,6 +44,9 @@ export class ProductsComponent {
         this.dataSource = new MatTableDataSource(products);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+      }, err => {
+        this.toastService.openSnackBar('Data Loading Error: ' + err.status + ' - ' + err.statusText, '', 'error-snackbar');
+        throw err;
       });
   }
 

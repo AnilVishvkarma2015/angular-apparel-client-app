@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
+import { map } from 'rxjs/operators'
 
 import { PurchaseOrder } from '../models/purchaseorder.model';
 import { ToastService } from './toast.service';
@@ -17,43 +17,31 @@ export class PurchaseorderService {
 
   createPO(newOrder: PurchaseOrder) {
     return this.http.post(this.apiBaseURL + 'purchaseorders/create', newOrder, this.utility.requestHeaders())
-      .subscribe(
-        data => {
-          this.toastService.openSnackBar('Order Created Successfully', '', 'success-snackbar');
-          return data;
-        },
-        error => {
-          catchError(this.utility.handleError);
-          this.toastService.openSnackBar('Order Cannot Created', '', 'error-snackbar');
-        });
+      .subscribe(res => {
+        this.toastService.openSnackBar('Order Created Successfully', '', 'success-snackbar');
+        return res;
+      }, error => { throw error; });
   }
 
   getPOs() {
-    return this.http.get<PurchaseOrder[]>(this.apiBaseURL + 'purchaseorders/');
+    return this.http.get<PurchaseOrder[]>(this.apiBaseURL + 'purchaseorders/').pipe(map(res => {
+      return res;
+    }));
   }
 
   updatePO(updatedOrder: PurchaseOrder) {
     return this.http.put(this.apiBaseURL + 'purchaseorders/' + updatedOrder.id, updatedOrder)
-      .subscribe(
-        data => {
-          this.toastService.openSnackBar('Order Updated Successfully', '', 'success-snackbar');
-          return data;
-        },
-        error => {
-          catchError(this.utility.handleError);
-          this.toastService.openSnackBar('Order Cannot Updated', '', 'error-snackbar');
-        });
+      .subscribe(res => {
+        this.toastService.openSnackBar('Order Updated Successfully', '', 'success-snackbar');
+        return res;
+      }, error => { throw error; });
   }
 
   deletePO(deleteOrder: PurchaseOrder) {
     return this.http.delete(this.apiBaseURL + 'purchaseorders/' + deleteOrder.id)
-      .subscribe(
-        data => {
-          this.toastService.openSnackBar('Order Deleted Successfully', '', 'success-snackbar');
-        },
-        error => {
-          catchError(this.utility.handleError);
-          this.toastService.openSnackBar('Order Cannot Deleted', '', 'error-snackbar');
-        });
+      .subscribe(res => {
+        this.toastService.openSnackBar('Order Deleted Successfully', '', 'success-snackbar');
+        return res;
+      }, error => { throw error; });
   }
 }

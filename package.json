@@ -32,6 +32,7 @@
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
     "@types/jspdf": "^1.1.31",
+    "@types/jwt-decode": "^2.2.1",
     "@types/underscore": "^1.8.9",
     "core-js": "^2.5.4",
     "express": "^4.16.3",
