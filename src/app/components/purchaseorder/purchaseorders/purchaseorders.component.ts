@@ -7,11 +7,11 @@ import { PurchaseOrder } from '../../../models/purchaseorder.model';
 import { ExportPdfService } from '../../../services/export-pdf.service';
 import { AddPoDialogComponent } from '../add-po-dialog/add-po-dialog.component';
 import { UpdatePoDialogComponent } from '../update-po-dialog/update-po-dialog.component';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-purchaseorders',
-  templateUrl: './purchaseorders.component.html',
-  styleUrls: ['./purchaseorders.component.scss']
+  templateUrl: './purchaseorders.component.html'
 })
 export class PurchaseordersComponent {
   displayedColumns = ['orderNumber', 'orderStatus', 'productName', 'supplierName', 'orderQuantity', 'actions'];
@@ -23,7 +23,8 @@ export class PurchaseordersComponent {
 
   constructor(private poService: PurchaseorderService,
     public dialog: MatDialog,
-    private exportPdfService: ExportPdfService
+    private exportPdfService: ExportPdfService,
+    private toastService: ToastService
   ) { }
 
   ngAfterViewInit() {
@@ -43,6 +44,9 @@ export class PurchaseordersComponent {
         this.dataSource = new MatTableDataSource(orders);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+      }, err => {
+        this.toastService.openSnackBar('Data Loading Error: ' + err.status + ' - ' + err.statusText, '', 'error-snackbar');
+        throw err;
       });
   }
 

@@ -1,24 +1,22 @@
 import 'hammerjs';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { APP_INITIALIZER } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { AppConfig } from '../app/config/app.config';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AppConfig } from '../app/config/app.config';
-import { LoginComponent } from './components/user/login/login.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppMaterialModule } from './material.module';
-import { RegisterComponent } from './components/user/register/register.component';
-import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './core/auth.guard';
 import { JwtInterceptor } from './core/jwt.interceptor';
-import { AuthenticationService } from './services/authentication.service';
-import { UserService } from './services/user.service';
-import { ProductService } from './services/product.service';
+
+import { LoginComponent } from './components/user/login/login.component';
+import { RegisterComponent } from './components/user/register/register.component';
+import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { UsersComponent } from './components/user/users/users.component';
 import { ProductsComponent } from './components/product/products/products.component';
@@ -30,8 +28,14 @@ import { UpdateSupplierDialogComponent } from './components/supplier/update-supp
 import { PurchaseordersComponent } from './components/purchaseorder/purchaseorders/purchaseorders.component';
 import { AddPoDialogComponent } from './components/purchaseorder/add-po-dialog/add-po-dialog.component';
 import { UpdatePoDialogComponent } from './components/purchaseorder/update-po-dialog/update-po-dialog.component';
+
+import { AuthenticationService } from './services/authentication.service';
+import { UserService } from './services/user.service';
+import { ProductService } from './services/product.service';
 import { SupplierService } from './services/supplier.service';
 import { PurchaseorderService } from './services/purchaseorder.service';
+import { GlobalErrorHandlerService } from './services/global-error-handler.service';
+
 
 export function initConfig(config: AppConfig) {
   return () => config.load();
@@ -82,13 +86,22 @@ export function initConfig(config: AppConfig) {
       deps: [AppConfig],
       multi: true
     },
+    GlobalErrorHandlerService,
+    {
+      provide: ErrorHandler,
+      useClass: GlobalErrorHandlerService
+    },
     AuthGuard,
     AuthenticationService,
     ProductService,
     SupplierService,
     PurchaseorderService,
     UserService,
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

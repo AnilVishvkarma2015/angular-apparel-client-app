@@ -7,6 +7,7 @@ import { UpdateSupplierDialogComponent } from '../update-supplier-dialog/update-
 import { Supplier } from '../../../models/supplier.model';
 import { SupplierService } from '../../../services/supplier.service';
 import { ExportPdfService } from '../../../services/export-pdf.service';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-suppliers',
@@ -22,7 +23,8 @@ export class SuppliersComponent {
 
   constructor(public dialog: MatDialog,
     private supplierService: SupplierService,
-    private exportPdfService: ExportPdfService) { }
+    private exportPdfService: ExportPdfService,
+    private toastService: ToastService) { }
 
   ngAfterViewInit() {
     this.loadSuppliers();
@@ -34,14 +36,16 @@ export class SuppliersComponent {
     this.dataSource.filter = filterValue;
   }
 
-  private
-  loadSuppliers() {
+  private loadSuppliers() {
     this.supplierService.getSuppliers().pipe(
       finalize(() => this.isLoading = false))
       .subscribe(suppliers => {
         this.dataSource = new MatTableDataSource(suppliers);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+      }, err => {
+        this.toastService.openSnackBar('Data Loading Error: ' + err.status + ' - ' + err.statusText, '', 'error-snackbar');
+        throw err;
       });
   }
 
@@ -57,9 +61,9 @@ export class SuppliersComponent {
       if (form) {
         this.supplierService.createSupplier(form).add(() => {
           this.loadSuppliers();
-        })
+        });
       }
-    })
+    });
   }
 
   updateSupplier(supplier: Supplier) {

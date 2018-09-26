@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
+import { map } from 'rxjs/operators'
 
 import { ToastService } from './toast.service';
 import { UtilityService } from './utility.service';
@@ -17,43 +17,31 @@ export class ProductService {
 
   createProduct(newProduct: Product) {
     return this.http.post(this.apiBaseURL + 'products/create', newProduct, this.utility.requestHeaders())
-      .subscribe(
-        data => {
-          this.toastService.openSnackBar('Product Created Successfully', '', 'success-snackbar');
-          return data;
-        },
-        error => {
-          catchError(this.utility.handleError);
-          this.toastService.openSnackBar('Product Cannot Created', '', 'error-snackbar');
-        });
+      .subscribe(res => {
+        this.toastService.openSnackBar('Product Created Successfully', '', 'success-snackbar');
+        return res;
+      }, error => { throw error; });
   }
 
   getProducts() {
-    return this.http.get<Product[]>(this.apiBaseURL + 'products/');
+    return this.http.get<Product[]>(this.apiBaseURL + 'products/').pipe(map(res => {
+      return res;
+    }));
   }
 
   updateProduct(updatedProduct: Product) {
     return this.http.put(this.apiBaseURL + 'products/' + updatedProduct.id, updatedProduct)
-      .subscribe(
-        data => {
-          this.toastService.openSnackBar('Product Updated Successfully', '', 'success-snackbar');
-          return data;
-        },
-        error => {
-          catchError(this.utility.handleError);
-          this.toastService.openSnackBar('Product Cannot Updated', '', 'error-snackbar');
-        });
+      .subscribe(res => {
+        this.toastService.openSnackBar('Product Updated Successfully', '', 'success-snackbar');
+        return res;
+      }, error => { throw error; });
   }
 
   deleteProduct(deleteProduct: Product) {
     return this.http.delete(this.apiBaseURL + 'products/' + deleteProduct.id)
-      .subscribe(
-        data => {
-          this.toastService.openSnackBar('Product Deleted Successfully', '', 'success-snackbar');
-        },
-        error => {
-          catchError(this.utility.handleError);
-          this.toastService.openSnackBar('Product Cannot Deleted', '', 'error-snackbar');
-        });
+      .subscribe(res => {
+        this.toastService.openSnackBar('Product Deleted Successfully', '', 'success-snackbar');
+        return res;
+      }, error => { throw error; });
   }
 }
