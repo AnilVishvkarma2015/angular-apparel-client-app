@@ -16,6 +16,7 @@ export class AuthenticationService {
     currentUserSubject = new BehaviorSubject<string>(this.hasCurrentUser());
     apiBaseURL = AppConfig.settings.apiServer.baseURL;
 
+
     constructor(private http: HttpClient, private router: Router, private toastService: ToastService) { }
 
     private hasToken(): boolean {
