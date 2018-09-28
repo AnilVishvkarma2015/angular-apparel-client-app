@@ -1,40 +1,43 @@
 <div *ngIf="(isUserLoggedIn | async); then authenticated else guest"></div>
 <ng-template #authenticated>
-  <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="isHandset ? 'dialog' : 'navigation'" [mode]="(isHandset | async)!.matches ? 'over' : 'side'"
-      [opened]="!(isHandset | async)!.matches">
-      <mat-toolbar color="primary" class="current-user">Welcome, {{currentUser | async}}</mat-toolbar>
-      <mat-nav-list class="routing">
-        <a mat-list-item href="/users">Users</a>
-        <mat-divider></mat-divider>
-        <a mat-list-item href="/products">Products</a>
-        <mat-divider></mat-divider>
-        <a mat-list-item href="/suppliers">Suppliers</a>
-        <mat-divider></mat-divider>
-        <a mat-list-item href="/purchaseorders">Purchases</a>
-        <mat-divider></mat-divider>
-      </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <mat-toolbar color="primary">
-        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset | async)!.matches">
-          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-        </button>
-        <span class="appName">R SHOP</span>
-        <span class="example-spacer"></span>
-        <button type="submit" mat-raised-button color="primary" (click)="onLogout()">
-          <b>LOGOUT</b>
-        </button>
-      </mat-toolbar>
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+  <div class="main-container">
+    <mat-sidenav-container class="sidenav-container">
+      <mat-sidenav #drawer class="sidenav-bar" fixedInViewport="true" [attr.role]="isHandset ? 'dialog' : 'navigation'"
+        [mode]="(isHandset | async)!.matches ? 'over' : 'side'" [opened]="!(isHandset | async)!.matches">
+        <mat-toolbar color="primary" class="current-user">Welcome, {{currentUser | async}}</mat-toolbar>
+        <mat-nav-list class="routing">
+          <a mat-list-item routerLink="/users">Users</a>
+          <mat-divider></mat-divider>
+          <a mat-list-item routerLink="/products">Products</a>
+          <mat-divider></mat-divider>
+          <a mat-list-item routerLink="/suppliers">Suppliers</a>
+          <mat-divider></mat-divider>
+          <a mat-list-item routerLink="/purchaseorders">Purchases</a>
+          <mat-divider></mat-divider>
+        </mat-nav-list>
+      </mat-sidenav>
+  
+      <mat-sidenav-content>
+        <mat-toolbar color="primary">
+          <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset | async)!.matches">
+            <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+          </button>
+          <span class="appName">R SHOP</span>
+          <span class="spacer"></span>
+          <button type="submit" mat-raised-button color="primary" (click)="onLogout()">
+            <b>LOGOUT</b>
+          </button>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
 </ng-template>
 
 <ng-template #guest>
   <mat-toolbar color="primary" class="fixed-header">
-      <span class="appName">R SHOP</span>
-    <span class="example-spacer"></span>
+    <span class="appName">R SHOP</span>
+    <span class="spacer"></span>
     <a mat-button routerLink="/register">
       <b>REGISTER</b>
     </a>

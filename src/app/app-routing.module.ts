@@ -8,6 +8,7 @@ import { UsersComponent } from './components/user/users/users.component';
 import { ProductsComponent } from './components/product/products/products.component';
 import { SuppliersComponent } from './components/supplier/suppliers/suppliers.component';
 import { PurchaseordersComponent } from './components/purchaseorder/purchaseorders/purchaseorders.component';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
   {
@@ -25,7 +26,7 @@ const routes: Routes = [
   {
     path: 'users',
     canActivate: [AuthGuard],
-    component: UsersComponent
+    component: SuppliersComponent
   },
   {
     path: 'products',
@@ -47,7 +48,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })
   ],
   exports: [
     RouterModule

@@ -5,6 +5,7 @@
 body {
     margin: 0;
     background-color: #E8EAF6;
+    height: 100%;
     min-height:32em; background-size:cover; width:auto;
     background-image:url('./app/shared/image/Rshop-main.jpeg');
 }
@@ -27,7 +28,7 @@ body {
 
 .table-layout {
     width: 96%;
-    min-height: 655px;
+    max-height:  500px;
     margin-top: 2%;
     margin-left: auto;
     margin-right: auto;
@@ -53,27 +54,27 @@ body {
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }
 
+.mat-table {
+    overflow: auto;
+    max-height: 500px;
+}
+
+.mat-header-row {
+    position: sticky;
+    top: 0;
+    background-color: inherit;
+}
+
 .res-table-container {
     display: flex;
     flex-direction: column;
-    max-height: 520px;
     min-width: 300px;
-  }
-  
-  .mat-table {
-    overflow: auto;
-    max-height: 500px;
   }
   
   .mobile-label {
     display: none;
   }
 
-  .main-background {
-    height:50em; background-size:cover; width:auto;
-    background-image:url('./app/shared/image/Rshop-main.jpeg');
-  }
-  
   @media(max-width: 600px) {
     .mobile-label {
       width: 160px;
@@ -83,6 +84,11 @@ body {
   
     .mat-header-row {
       display: none;
+    }
+
+    .mat-table {
+        overflow: auto;
+        max-height: 500px;
     }
   
     .mat-row { 

@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import * as jwt_decode from 'jwt-decode';
 
 import { AppConfig } from '../config/app.config';
+import { ToastService } from './toast.service';
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +16,8 @@ export class AuthenticationService {
     currentUserSubject = new BehaviorSubject<string>(this.hasCurrentUser());
     apiBaseURL = AppConfig.settings.apiServer.baseURL;
 
-    constructor(private http: HttpClient, private router: Router) { }
+
+    constructor(private http: HttpClient, private router: Router, private toastService: ToastService) { }
 
     private hasToken(): boolean {
         return !!localStorage.getItem('currentUser');
@@ -89,5 +91,6 @@ export class AuthenticationService {
         this.userAuthenticatedSubject.next(false);
         this.currentUserSubject.next(null);
         this.router.navigate(['/login']);
+        this.toastService.openSnackBar("You have been Logout Successfully!", '', "success-snackbar");
     }
 }
