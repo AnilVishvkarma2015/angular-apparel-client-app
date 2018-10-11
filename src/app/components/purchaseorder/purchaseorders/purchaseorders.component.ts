@@ -29,7 +29,6 @@ export class PurchaseordersComponent {
     private toastService: ToastService,
     private stock: StocksComponent,
     private productService: ProductService
-    private toastService: ToastService
   ) { }
 
   ngAfterViewInit() {
