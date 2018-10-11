@@ -8,4 +8,5 @@ export interface AppConfigInterface {
     apiServer: {
         baseURL: string;
     };
+    defaultMarginPercent: Number;
 }

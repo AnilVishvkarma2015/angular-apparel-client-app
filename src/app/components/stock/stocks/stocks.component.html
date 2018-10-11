@@ -1,0 +1,75 @@
+<div class="table-layout">
+  <div>
+    <div fxFlex="60%">
+      <button mat-raised-button color="primary" type="submit" (click)="downloadPDF()">Download</button>
+    </div>
+
+    <div fxFlex="40%" style="text-align: end;">
+      <mat-form-field style="width: 55%">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="res-table-container mat-elevation-z8">
+    <mat-table #table [dataSource]="dataSource" matSort>
+
+      <!-- Product Name Column -->
+      <ng-container matColumnDef="productName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Product </mat-header-cell>
+        <mat-cell *matCellDef="let row"> <span class="mobile-label">Product Name:</span> {{row.productName}} </mat-cell>
+      </ng-container>
+
+       <!-- Product Name Column -->
+       <ng-container matColumnDef="productBrand">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Brand </mat-header-cell>
+        <mat-cell *matCellDef="let row"> <span class="mobile-label">Product Brand:</span> {{row.productBrand}} </mat-cell>
+      </ng-container>
+
+      <!-- Progress Column -->
+      <ng-container matColumnDef="stockQuantity">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Quantity </mat-header-cell>
+        <mat-cell *matCellDef="let row"> <span class="mobile-label">Stock Quantity:</span> {{row.stockQuantity}}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="stockStatus">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell">Status </mat-header-cell>
+        <mat-cell *matCellDef="let row"> <span class="mobile-label">Stock Status:</span> {{row.stockStatus}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="sellingPrice">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Selling Price </mat-header-cell>
+        <mat-cell *matCellDef="let row"> <span class="mobile-label">Selling Price:</span> {{row.sellingPrice}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="marginPercent">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Margin Percent </mat-header-cell>
+        <mat-cell *matCellDef="let row"> <span class="mobile-label">Margin Percent:</span> {{row.marginPercent}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef class="header-cell"> Actions </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <span class="mobile-label">Actions:</span>
+          <a class="action-btn" (click)="updateStock(row)">
+            <mat-icon>edit</mat-icon>
+          </a>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+
+    <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
+      <mat-progress-spinner color="primary" mode="indeterminate">
+      </mat-progress-spinner>
+    </div>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+</div>

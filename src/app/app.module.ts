@@ -28,6 +28,8 @@ import { UpdateSupplierDialogComponent } from './components/supplier/update-supp
 import { PurchaseordersComponent } from './components/purchaseorder/purchaseorders/purchaseorders.component';
 import { AddPoDialogComponent } from './components/purchaseorder/add-po-dialog/add-po-dialog.component';
 import { UpdatePoDialogComponent } from './components/purchaseorder/update-po-dialog/update-po-dialog.component';
+import { StocksComponent } from './components/stock/stocks/stocks.component';
+import { UpdateStockDialogComponent } from './components/stock/update-stock-dialog/update-stock-dialog.component';
 
 import { AuthenticationService } from './services/authentication.service';
 import { UserService } from './services/user.service';
@@ -35,7 +37,7 @@ import { ProductService } from './services/product.service';
 import { SupplierService } from './services/supplier.service';
 import { PurchaseorderService } from './services/purchaseorder.service';
 import { GlobalErrorHandlerService } from './services/global-error-handler.service';
-
+import { StockService } from './services/stock.service';
 
 export function initConfig(config: AppConfig) {
   return () => config.load();
@@ -57,7 +59,9 @@ export function initConfig(config: AppConfig) {
     UpdateSupplierDialogComponent,
     PurchaseordersComponent,
     AddPoDialogComponent,
-    UpdatePoDialogComponent
+    UpdatePoDialogComponent,
+    StocksComponent,
+    UpdateStockDialogComponent
   ],
   imports: [
     FormsModule,
@@ -76,7 +80,8 @@ export function initConfig(config: AppConfig) {
     AddSupplierDialogComponent,
     UpdateSupplierDialogComponent,
     AddPoDialogComponent,
-    UpdatePoDialogComponent
+    UpdatePoDialogComponent,
+    UpdateStockDialogComponent
   ],
   providers: [
     AppConfig,
@@ -97,6 +102,7 @@ export function initConfig(config: AppConfig) {
     SupplierService,
     PurchaseorderService,
     UserService,
+    StockService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

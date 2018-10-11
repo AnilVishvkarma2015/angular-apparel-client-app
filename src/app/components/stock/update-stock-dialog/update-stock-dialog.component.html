@@ -1,0 +1,64 @@
+<div class="dialog-box-container">
+  <h1 mat-dialog-title class="dialog-title">
+    <b>Update Stock</b>
+  </h1>
+  <hr class="dialog-title-hr">
+  <mat-dialog-content [formGroup]="form">
+    <input type="hidden" name="id" formControlName="id">
+    <br>
+    <div fxLayout="row">
+      <mat-form-field class="card-full-width" fxFlex="45%">
+        <input matInput placeholder="Product Name" formControlName="productName">
+      </mat-form-field>
+      <div fxFlex="10%"></div>
+      <mat-form-field class="card-full-width" fxFlex="45%">
+        <input matInput placeholder="Product Brand" formControlName="productBrand">
+      </mat-form-field>
+    </div>
+    <br>
+    <div fxLayout="row">
+      <mat-form-field class="card-full-width" fxFlex="45%">
+        <input matInput placeholder="Product Category" formControlName="productCategory">
+      </mat-form-field>
+      <div fxFlex="10%"></div>
+      <mat-form-field class="card-full-width" fxFlex="45%">
+        <input matInput placeholder="Barcode" formControlName="productBarcode">
+      </mat-form-field>
+    </div>
+    <br>
+    <div fxLayout="row">
+      <mat-form-field class="card-full-width" fxFlex="45%">
+        <input matInput placeholder="Stock Quantity" formControlName="stockQuantity">
+      </mat-form-field>
+      <div fxFlex="10%"></div>
+      <mat-form-field class="card-full-width" fxFlex="45%">
+        <mat-select placeholder="Stock Status" formControlName="stockStatus">
+          <mat-option *ngFor="let status of statusOptions" [value]="status.value">
+            {{ status.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <br>
+    <div fxLayout="row">
+      <mat-form-field class="card-full-width" fxFlex="45%">
+        <input matInput placeholder="Selling Price" formControlName="sellingPrice" readonly>
+      </mat-form-field>
+      <div fxFlex="10%"></div>
+      <mat-form-field class="card-full-width" fxFlex="45%">
+        <input matInput placeholder="Margin Percent" formControlName="marginPercent">
+        <mat-error *ngIf="isFieldInvalid('marginPercent')">
+          Please enter margin percent.
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button class="mat-raised-button" (click)="close()">
+      Close
+    </button>
+    <button [disabled]="!form.valid" class="mat-raised-button mat-primary" (click)="update()">
+      Update
+    </button>
+  </mat-dialog-actions>
+</div>
