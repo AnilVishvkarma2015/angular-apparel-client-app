@@ -7,5 +7,6 @@
     },
     "apiServer": {
         "baseURL": "https://r-shop-server-app.herokuapp.com/"
-    }
+    },
+    "defaultMarginPercent": 10
 }

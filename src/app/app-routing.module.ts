@@ -8,6 +8,7 @@ import { UsersComponent } from './components/user/users/users.component';
 import { ProductsComponent } from './components/product/products/products.component';
 import { SuppliersComponent } from './components/supplier/suppliers/suppliers.component';
 import { PurchaseordersComponent } from './components/purchaseorder/purchaseorders/purchaseorders.component';
+import { StocksComponent } from './components/stock/stocks/stocks.component';
 import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
@@ -42,6 +43,11 @@ const routes: Routes = [
     path: 'purchaseorders',
     canActivate: [AuthGuard],
     component: PurchaseordersComponent
+  },
+  {
+    path: 'stocks',
+    canActivate: [AuthGuard],
+    component: StocksComponent
   },
   { path: '**', redirectTo: '' }
 ];

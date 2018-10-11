@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 import { PurchaseOrder } from '../../../models/purchaseorder.model';
 
@@ -11,6 +12,7 @@ import { PurchaseOrder } from '../../../models/purchaseorder.model';
 })
 export class UpdatePoDialogComponent {
   public statusList = [{ value: 'Pending' }, { value: 'Completed' }];
+  isOrderCompleted = false;
 
   form: FormGroup;
   id: string;
@@ -28,17 +30,34 @@ export class UpdatePoDialogComponent {
     private dialogRef: MatDialogRef<UpdatePoDialogComponent>,
     @Inject(MAT_DIALOG_DATA) pOrder: PurchaseOrder) {
 
+    let setOrderStatus = [];
+    let setOrderQuantity = [];
+    let setDeliveryDate = [];
+    let setPurchasedPrice = [];
+    if (pOrder.orderStatus === 'Completed') {
+      this.isOrderCompleted = true;
+      setOrderStatus.push({ value: pOrder.orderStatus, disabled: true });
+      setOrderQuantity.push({ value: pOrder.orderQuantity, disabled: true });
+      setDeliveryDate.push({ value: pOrder.deliveryDate, disabled: true });
+      setPurchasedPrice.push({ value: pOrder.purchasedPrice, disabled: true });
+    } else {
+      setOrderStatus.push(pOrder.orderStatus);
+      setOrderQuantity.push(pOrder.orderQuantity);
+      setDeliveryDate.push(pOrder.deliveryDate);
+      setPurchasedPrice.push(pOrder.purchasedPrice);
+    }
+
     this.form = this.formBuilder.group({
       id: [pOrder.id],
       orderNumber: [{ value: pOrder.orderNumber, disabled: true }],
-      orderStatus: [pOrder.orderStatus, Validators.required],
+      orderStatus: setOrderStatus,
       productCategory: [{ value: pOrder.productCategory, disabled: true }],
       productBrand: [{ value: pOrder.productBrand, disabled: true }],
       productName: [{ value: pOrder.productName, disabled: true }],
       supplierName: [{ value: pOrder.supplierName, disabled: true }],
-      orderQuantity: [pOrder.orderQuantity, Validators.required],
-      deliveryDate: [pOrder.deliveryDate, Validators.required],
-      purchasedPrice: [pOrder.purchasedPrice, Validators.required]
+      orderQuantity: setOrderQuantity,
+      deliveryDate: setDeliveryDate,
+      purchasedPrice: setPurchasedPrice
     })
   }
 

@@ -8,6 +8,8 @@ import { ExportPdfService } from '../../../services/export-pdf.service';
 import { AddPoDialogComponent } from '../add-po-dialog/add-po-dialog.component';
 import { UpdatePoDialogComponent } from '../update-po-dialog/update-po-dialog.component';
 import { ToastService } from '../../../services/toast.service';
+import { StocksComponent } from '../../stock/stocks/stocks.component';
+import { ProductService } from '../../../services/product.service';
 
 @Component({
   selector: 'app-purchaseorders',
@@ -24,7 +26,9 @@ export class PurchaseordersComponent {
   constructor(private poService: PurchaseorderService,
     public dialog: MatDialog,
     private exportPdfService: ExportPdfService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private stock: StocksComponent,
+    private productService: ProductService
   ) { }
 
   ngAfterViewInit() {
@@ -82,7 +86,8 @@ export class PurchaseordersComponent {
       productName: updatedOrder.productName,
       supplierName: updatedOrder.supplierName,
       orderQuantity: updatedOrder.orderQuantity,
-      deliveryDate: updatedOrder.deliveryDate
+      deliveryDate: updatedOrder.deliveryDate,
+      purchasedPrice: updatedOrder.purchasedPrice
     }
 
     const dialogRef = this.dialog.open(UpdatePoDialogComponent, dialogConfig);
@@ -91,9 +96,24 @@ export class PurchaseordersComponent {
       if (form) {
         this.poService.updatePO(form).add(() => {
           this.loadOrders();
+          if (form.orderStatus === "Completed") {
+            updatedOrder.orderQuantity = form.orderQuantity;
+            updatedOrder.purchasedPrice = form.purchasedPrice;
+            this.addStock(updatedOrder);
+          }
         });
       }
     })
+  }
+
+  private addStock(poReceived) {
+    this.productService.getBarcodeByProduct({ productName: poReceived.productName, productBrand: poReceived.productBrand })
+      .subscribe(productDetail => {
+        poReceived.productBarcode = productDetail[0].productBarcode;
+        this.stock.addStock(poReceived);
+      }, err => {
+        throw err;
+      });
   }
 
   deletePO(orderToDelete: PurchaseOrder) {

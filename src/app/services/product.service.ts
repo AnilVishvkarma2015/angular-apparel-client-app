@@ -29,6 +29,12 @@ export class ProductService {
     }));
   }
 
+  getBarcodeByProduct(productParams) {
+    return this.http.post(this.apiBaseURL + 'products/getBarcode', productParams, this.utility.requestHeaders()).pipe(map(res => {
+      return res;
+    }));
+  }
+
   updateProduct(updatedProduct: Product) {
     return this.http.put(this.apiBaseURL + 'products/' + updatedProduct.id, updatedProduct)
       .subscribe(res => {

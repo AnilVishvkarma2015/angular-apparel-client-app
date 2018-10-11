@@ -80,7 +80,7 @@
     <button class="mat-raised-button" (click)="close()">
       Close
     </button>
-    <button [disabled]="!form.valid" class="mat-raised-button mat-primary" (click)="update()">
+    <button [disabled]="!form.valid || isOrderCompleted" class="mat-raised-button mat-primary" (click)="update()">
       Update
     </button>
   </mat-dialog-actions>
