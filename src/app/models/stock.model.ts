@@ -7,6 +7,6 @@ export class Stock {
     stockQuantity: Number;
     stockStatus: string;
     sellingPrice: Number;
-    purchasedPrice: Number;
+    productPrice: Number;
     marginPercent: Number;
 }

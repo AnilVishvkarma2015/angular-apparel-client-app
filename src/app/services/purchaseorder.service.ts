@@ -29,6 +29,12 @@ export class PurchaseorderService {
     }));
   }
 
+  getPOById(id) {
+    return this.http.get<PurchaseOrder>(this.apiBaseURL + 'purchaseorders/' + id).pipe(map(res => {
+      return res;
+    }));
+  }
+
   updatePO(updatedOrder: PurchaseOrder) {
     return this.http.put(this.apiBaseURL + 'purchaseorders/' + updatedOrder.id, updatedOrder)
       .subscribe(res => {

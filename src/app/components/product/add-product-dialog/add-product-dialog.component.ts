@@ -15,6 +15,7 @@ export class AddProductDialogComponent {
   productCategory: string;
   productBarcode: string;
   productDescription: string;
+  productPrice: Number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,7 +27,8 @@ export class AddProductDialogComponent {
       productBrand: ["", Validators.required],
       productCategory: ["", Validators.required],
       productBarcode: ["", Validators.required],
-      productDescription: ["", Validators.required]
+      productDescription: ["", Validators.required],
+      productPrice: [0, Validators.required]
     });
   }
 

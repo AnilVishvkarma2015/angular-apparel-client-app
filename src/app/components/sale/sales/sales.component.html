@@ -1,0 +1,73 @@
+<div class="table-layout">
+  <div>
+    <div fxFlex="60%">
+      <button mat-raised-button color="primary" type="submit" (click)="newBill()">New BIll</button>
+      <button mat-raised-button color="primary" type="submit" (click)="downloadPDF()" style="margin-left: 15px;">Download</button>
+    </div>
+
+    <div fxFlex="40%" style="text-align: end;">
+      <mat-form-field style="width: 55%">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="res-table-container mat-elevation-z8">
+    <mat-table #table [dataSource]="dataSource" matSort>
+
+      <!-- Product Name Column -->
+      <ng-container matColumnDef="billNumber">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Bill Number </mat-header-cell>
+        <mat-cell *matCellDef="let row"> <span class="mobile-label">Bill Number:</span> {{row.billNumber}} </mat-cell>
+      </ng-container>
+
+      <!-- Progress Column -->
+      <ng-container matColumnDef="quantity">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell">Quantity </mat-header-cell>
+        <mat-cell *matCellDef="let row"> <span class="mobile-label">Quantity:</span> {{row.quantity}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="billAmount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Bill Amount </mat-header-cell>
+        <mat-cell *matCellDef="let row"> <span class="mobile-label">Bill Amount:</span> {{row.billAmount}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="discount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Discount </mat-header-cell>
+        <mat-cell *matCellDef="let row"> <span class="mobile-label">Discount:</span> {{row.discount}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="netAmount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Net Amount </mat-header-cell>
+        <mat-cell *matCellDef="let row"> <span class="mobile-label">Net Amount:</span> {{row.netAmount}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="customerName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Customer Name </mat-header-cell>
+        <mat-cell *matCellDef="let row"> <span class="mobile-label">Customer Name:</span> {{row.customerName}}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="customerPhone">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Customer Phone </mat-header-cell>
+        <mat-cell *matCellDef="let row"> <span class="mobile-label">Customer Phone:</span> {{row.customerPhone}}
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+
+    <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
+      <mat-progress-spinner color="primary" mode="indeterminate">
+      </mat-progress-spinner>
+    </div>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+</div>

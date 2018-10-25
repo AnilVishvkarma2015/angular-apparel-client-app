@@ -1,0 +1,77 @@
+<div class="dialog-box-container">
+  <h2 mat-dialog-title class="dialog-title">
+    <b>Add Customer</b>
+  </h2>
+  <hr class="dialog-title-hr">
+  <mat-dialog-content [formGroup]="form">
+    <input type="hidden" name="id" formControlName="id">
+    <br>
+    <div fxLayout="row">
+      <mat-form-field fxFlex="45%">
+        <input matInput placeholder="Customer Name" formControlName="customerName">
+        <mat-error *ngIf="isFieldInvalid('customerName')">
+          Please enter customer name.
+        </mat-error>
+      </mat-form-field>
+      <div fxFlex="10%"></div>
+      <mat-form-field fxFlex="45%">
+        <input matInput placeholder="Customer Email" formControlName="customerEmail">
+        <mat-error *ngIf="isFieldInvalid('customerEmail')">
+          Please enter customer email.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <br>
+    <div fxLayout="row">
+      <mat-form-field fxFlex="45%">
+        <input matInput placeholder="Customer Phone" formControlName="customerPhone">
+        <mat-error *ngIf="isFieldInvalid('customerPhone')">
+          Please enter customer phone.
+        </mat-error>
+      </mat-form-field>
+      <div fxFlex="10%"></div>
+      <mat-form-field fxFlex="45%">
+        <mat-select placeholder="Customer Country" formControlName="customerCountry">
+          <mat-option *ngFor="let country of countryList" [value]="country">
+            {{ country }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="isFieldInvalid('customerCountry')">
+          Please enter country.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <br>
+    <div fxLayout="row">
+      <mat-form-field fxFlex="45%">
+        <mat-select placeholder="Customer State" formControlName="customerState">
+          <mat-option *ngFor="let state of stateList" [value]="state.name">
+            {{ state.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="isFieldInvalid('customerState')">
+          Please enter state .
+        </mat-error>
+      </mat-form-field>
+      <div fxFlex="10%"></div>
+      <mat-form-field fxFlex="45%">
+        <mat-select placeholder="Customer City" formControlName="customerCity">
+          <mat-option *ngFor="let city of cityList" [value]="city.name">
+            {{ city.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="isFieldInvalid('customerCity')">
+          Please enter city.
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button class="mat-raised-button" (click)="close()">
+      Close
+    </button>
+    <button [disabled]="!form.valid" class="mat-raised-button mat-primary" (click)="save()">
+      Save
+    </button>
+  </mat-dialog-actions>
+</div>

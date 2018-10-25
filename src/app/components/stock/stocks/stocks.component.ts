@@ -54,10 +54,10 @@ export class StocksComponent {
       });
   }
 
-  private calculateSellingPrice(purchasedPrice, margin) {
-    purchasedPrice = parseInt(purchasedPrice);
-    let profit = (purchasedPrice / 100) * margin;
-    return (purchasedPrice + profit);
+  private calculateSellingPrice(productPrice, margin) {
+    productPrice = parseInt(productPrice);
+    let profit = (productPrice / 100) * margin;
+    return (productPrice + profit);
   }
 
   addStock(poReceived) {
@@ -65,20 +65,21 @@ export class StocksComponent {
       .subscribe(stocks => {
         if (stocks.length > 0) {
           let existingStock = stocks[0];
-          existingStock.stockQuantity = (existingStock.stockQuantity) + parseInt(poReceived.orderQuantity);
-          existingStock.sellingPrice = this.calculateSellingPrice(poReceived.purchasedPrice, AppConfig.settings.defaultMarginPercent);
+          existingStock.stockQuantity = existingStock.stockQuantity + parseInt(poReceived.orderQuantity);
+          existingStock.productPrice = poReceived.productPrice;
+          existingStock.sellingPrice = this.calculateSellingPrice(poReceived.productPrice, existingStock.marginPercent);
           this.stockService.updateStock(existingStock);
           return;
         }
-        
+
         let newStock = new Stock();
         newStock.productName = poReceived.productName;
         newStock.productBrand = poReceived.productBrand;
         newStock.productCategory = poReceived.productCategory;
         newStock.productBarcode = poReceived.productBarcode;
         newStock.stockQuantity = poReceived.orderQuantity;
-        newStock.sellingPrice = this.calculateSellingPrice(poReceived.purchasedPrice, AppConfig.settings.defaultMarginPercent);
-        newStock.purchasedPrice = poReceived.purchasedPrice;
+        newStock.sellingPrice = this.calculateSellingPrice(poReceived.productPrice, AppConfig.settings.defaultMarginPercent);
+        newStock.productPrice = poReceived.productPrice;
         newStock.stockStatus = "Inactive";
         newStock.marginPercent = AppConfig.settings.defaultMarginPercent;
         this.stockService.createStock(newStock);
@@ -109,7 +110,7 @@ export class StocksComponent {
 
     dialogRef.afterClosed().subscribe(form => {
       if (form) {
-        form.sellingPrice = this.calculateSellingPrice(updatedStock.purchasedPrice, form.marginPercent);
+        form.sellingPrice = this.calculateSellingPrice(updatedStock.productPrice, form.marginPercent);
         this.stockService.updateStock(form).add(() => {
           this.loadStocks();
         });

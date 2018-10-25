@@ -22,41 +22,19 @@
     <br>
     <div fxLayout="row">
       <mat-form-field class="card-full-width" fxFlex="45%">
-        <input matInput placeholder="Product Category" formControlName="productCategory">
-        <mat-error *ngIf="isFieldInvalid('productCategory')">
-          Please select product category.
-        </mat-error>
-      </mat-form-field>
-      <div fxFlex="10%"></div>
-      <mat-form-field class="card-full-width" fxFlex="45%">
-        <input matInput placeholder="Product Brand" formControlName="productBrand">
-        <mat-error *ngIf="isFieldInvalid('productBrand')">
-          Please select product brand.
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <br>
-    <div fxLayout="row">
-      <mat-form-field class="card-full-width" fxFlex="45%">
-        <input matInput placeholder="Product Name" formControlName="productName">
-        <mat-error *ngIf="isFieldInvalid('productName')">
-          Please select product name.
-        </mat-error>
-      </mat-form-field>
-      <div fxFlex="10%"></div>
-      <mat-form-field class="card-full-width" fxFlex="45%">
         <input matInput placeholder="Supplier" formControlName="supplierName">
-        <mat-error *ngIf="isFieldInvalid('supplierName')">
-          Please select supplier.
-        </mat-error>
+      </mat-form-field>
+      <div fxFlex="10%"></div>
+      <mat-form-field class="card-full-width" fxFlex="45%">
+        <input matInput placeholder="Quantity Ordered" formControlName="quantityOrdered">
       </mat-form-field>
     </div>
     <br>
     <div fxLayout="row">
-      <mat-form-field class="card-full-width" fxFlex="45%">
-        <input matInput placeholder="Quantity" formControlName="orderQuantity">
-        <mat-error *ngIf="isFieldInvalid('orderQuantity')">
-          Please enter quantity.
+      <mat-form-field class="card-full-width">
+        <input matInput placeholder="Billing Amount" formControlName="billingAmount">
+        <mat-error *ngIf="isFieldInvalid('billingAmount')">
+          Please enter billing amount.
         </mat-error>
       </mat-form-field>
       <div fxFlex="10%"></div>
@@ -69,12 +47,7 @@
         </mat-error>
       </mat-form-field>
     </div>
-    <mat-form-field class="card-full-width">
-      <input matInput placeholder="Purchasing Price(Per Unit)" formControlName="purchasedPrice">
-      <mat-error *ngIf="isFieldInvalid('purchasedPrice')">
-        Please enter purchasing price.
-      </mat-error>
-    </mat-form-field>
+
   </mat-dialog-content>
   <mat-dialog-actions>
     <button class="mat-raised-button" (click)="close()">

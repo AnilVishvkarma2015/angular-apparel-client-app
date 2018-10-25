@@ -1,7 +1,7 @@
 <div class="table-layout">
   <div>
     <div fxFlex="60%">
-      <button mat-raised-button color="primary" type="submit" (click)="addPO()">Add</button>
+      <button mat-raised-button color="primary" type="submit" (click)="createOrder()">Add</button>
       <button mat-raised-button color="primary" type="submit" (click)="downloadPDF()" style="margin-left: 15px;">Download</button>
     </div>
 
@@ -27,31 +27,33 @@
       </ng-container>
 
       <!-- Name Column -->
-      <ng-container matColumnDef="productName">
-        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Product Name </mat-header-cell>
-        <mat-cell *matCellDef="let row"> <span class="mobile-label">Product:</span> {{row.productName}} </mat-cell>
-      </ng-container>
-
-      <!-- Name Column -->
       <ng-container matColumnDef="supplierName">
         <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Supplier </mat-header-cell>
         <mat-cell *matCellDef="let row"> <span class="mobile-label">Supplier:</span> {{row.supplierName}} </mat-cell>
       </ng-container>
 
       <!-- Name Column -->
-      <ng-container matColumnDef="orderQuantity">
-        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Quantity </mat-header-cell>
-        <mat-cell *matCellDef="let row"> <span class="mobile-label">Quantity:</span> {{row.orderQuantity}} </mat-cell>
+      <ng-container matColumnDef="quantityOrdered">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Quantity Ordered</mat-header-cell>
+        <mat-cell *matCellDef="let row"> <span class="mobile-label">Quantity Ordered:</span> {{row.quantityOrdered}}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="billingAmount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Billing Amount</mat-header-cell>
+        <mat-cell *matCellDef="let row"> <span class="mobile-label"> Billing Amount:</span> {{row.billingAmount}}
+        </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef class="header-cell"> Actions </mat-header-cell>
         <mat-cell *matCellDef="let row">
           <span class="mobile-label">Actions:</span>
-          <a class="action-btn" (click)="updatePO(row)">
+          <a class="action-btn" (click)="updateOrder(row)">
             <mat-icon>edit</mat-icon>
           </a>
-          <a class="action-btn" (click)="deletePO(row)">
+          <a class="action-btn" (click)="deleteOrder(row)">
             <mat-icon>delete</mat-icon>
           </a>
         </mat-cell>
