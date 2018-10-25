@@ -20,7 +20,7 @@ export class UpdateProductDialogComponent {
   productBrand: string;
   productCategory: string;
   productBarcode: string;
-  productDescription: string;
+  productPrice: Number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,7 +33,7 @@ export class UpdateProductDialogComponent {
       productBrand: [product.productBrand, Validators.required],
       productCategory: [product.productCategory, Validators.required],
       productBarcode: [product.productBarcode, Validators.required],
-      productDescription: [product.productDescription, Validators.required]
+      productPrice: [product.productPrice, Validators.required]
     });
   }
 

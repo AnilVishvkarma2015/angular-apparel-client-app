@@ -26,7 +26,6 @@ import { SuppliersComponent } from './components/supplier/suppliers/suppliers.co
 import { AddSupplierDialogComponent } from './components/supplier/add-supplier-dialog/add-supplier-dialog.component';
 import { UpdateSupplierDialogComponent } from './components/supplier/update-supplier-dialog/update-supplier-dialog.component';
 import { PurchaseordersComponent } from './components/purchaseorder/purchaseorders/purchaseorders.component';
-import { AddPoDialogComponent } from './components/purchaseorder/add-po-dialog/add-po-dialog.component';
 import { UpdatePoDialogComponent } from './components/purchaseorder/update-po-dialog/update-po-dialog.component';
 import { StocksComponent } from './components/stock/stocks/stocks.component';
 import { UpdateStockDialogComponent } from './components/stock/update-stock-dialog/update-stock-dialog.component';
@@ -38,6 +37,11 @@ import { SupplierService } from './services/supplier.service';
 import { PurchaseorderService } from './services/purchaseorder.service';
 import { GlobalErrorHandlerService } from './services/global-error-handler.service';
 import { StockService } from './services/stock.service';
+import { AddCustomerDialogComponent } from './components/customer/add-customer-dialog/add-customer-dialog.component';
+import { CustomersComponent } from './components/customer/customers/customers.component';
+import { SalesComponent } from './components/sale/sales/sales.component';
+import { AddSaleDialogComponent } from './components/sale/add-sale-dialog/add-sale-dialog.component';
+import { CreatePoComponent } from './components/purchaseorder/create-po/create-po.component';
 
 export function initConfig(config: AppConfig) {
   return () => config.load();
@@ -58,10 +62,14 @@ export function initConfig(config: AppConfig) {
     AddSupplierDialogComponent,
     UpdateSupplierDialogComponent,
     PurchaseordersComponent,
-    AddPoDialogComponent,
     UpdatePoDialogComponent,
     StocksComponent,
-    UpdateStockDialogComponent
+    UpdateStockDialogComponent,
+    AddCustomerDialogComponent,
+    CustomersComponent,
+    SalesComponent,
+    AddSaleDialogComponent,
+    CreatePoComponent
   ],
   imports: [
     FormsModule,
@@ -79,9 +87,10 @@ export function initConfig(config: AppConfig) {
     UpdateProductDialogComponent,
     AddSupplierDialogComponent,
     UpdateSupplierDialogComponent,
-    AddPoDialogComponent,
     UpdatePoDialogComponent,
-    UpdateStockDialogComponent
+    UpdateStockDialogComponent,
+    AddCustomerDialogComponent,
+    AddSaleDialogComponent
   ],
   providers: [
     AppConfig,

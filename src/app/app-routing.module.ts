@@ -9,6 +9,9 @@ import { ProductsComponent } from './components/product/products/products.compon
 import { SuppliersComponent } from './components/supplier/suppliers/suppliers.component';
 import { PurchaseordersComponent } from './components/purchaseorder/purchaseorders/purchaseorders.component';
 import { StocksComponent } from './components/stock/stocks/stocks.component';
+import { CustomersComponent } from './components/customer/customers/customers.component';
+import { SalesComponent } from './components/sale/sales/sales.component';
+import { CreatePoComponent } from './components/purchaseorder/create-po/create-po.component';
 import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
@@ -48,6 +51,21 @@ const routes: Routes = [
     path: 'stocks',
     canActivate: [AuthGuard],
     component: StocksComponent
+  },
+  {
+    path: 'customers',
+    canActivate: [AuthGuard],
+    component: CustomersComponent
+  },
+  {
+    path: 'sales',
+    canActivate: [AuthGuard],
+    component: SalesComponent
+  },
+  {
+    path: 'create-po',
+    canActivate: [AuthGuard],
+    component: CreatePoComponent
   },
   { path: '**', redirectTo: '' }
 ];

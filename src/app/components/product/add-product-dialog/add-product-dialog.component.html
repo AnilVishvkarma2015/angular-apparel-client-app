@@ -40,6 +40,13 @@
         Please enter product description.
       </mat-error>
     </mat-form-field>
+    <br>
+    <mat-form-field class="card-full-width">
+      <input matInput placeholder="Product Price" formControlName="productPrice">
+      <mat-error *ngIf="isFieldInvalid('productPrice')">
+        Please enter product price.
+      </mat-error>
+    </mat-form-field>
   </mat-dialog-content>
   <mat-dialog-actions>
     <button class="mat-raised-button" (click)="close()">

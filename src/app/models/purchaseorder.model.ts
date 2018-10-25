@@ -1,12 +1,12 @@
+import { PoItems } from './poitems.model';
+
 export class PurchaseOrder {
-    id: String;
+    id: string;
     orderNumber: string;
     orderStatus: string;
-    productCategory: string;
-    productBrand: string;
-    productName: string;
     supplierName: string;
-    orderQuantity: Number;
+    quantityOrdered: Number;
     deliveryDate: Date;
-    purchasedPrice: Number
+    billingAmount: Number;
+    poItems: PoItems[];
 }

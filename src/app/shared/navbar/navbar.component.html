@@ -16,9 +16,13 @@
           <mat-divider></mat-divider>
           <a mat-list-item routerLink="/stocks">Stocks</a>
           <mat-divider></mat-divider>
+          <a mat-list-item routerLink="/customers">Customers</a>
+          <mat-divider></mat-divider>
+          <a mat-list-item routerLink="/sales">Sales</a>
+          <mat-divider></mat-divider>
         </mat-nav-list>
       </mat-sidenav>
-  
+
       <mat-sidenav-content>
         <mat-toolbar color="primary">
           <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset | async)!.matches">

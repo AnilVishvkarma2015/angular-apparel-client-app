@@ -1,29 +1,32 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatDialog, MatDialogConfig } from '@angular/material';
 import { first, finalize } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
-import { PurchaseorderService } from '../../../services/purchaseorder.service';
 import { PurchaseOrder } from '../../../models/purchaseorder.model';
+import { Stock } from '../../../models/stock.model';
+import { PurchaseorderService } from '../../../services/purchaseorder.service';
 import { ExportPdfService } from '../../../services/export-pdf.service';
-import { AddPoDialogComponent } from '../add-po-dialog/add-po-dialog.component';
-import { UpdatePoDialogComponent } from '../update-po-dialog/update-po-dialog.component';
 import { ToastService } from '../../../services/toast.service';
-import { StocksComponent } from '../../stock/stocks/stocks.component';
 import { ProductService } from '../../../services/product.service';
+import { UpdatePoDialogComponent } from '../update-po-dialog/update-po-dialog.component';
+import { StocksComponent } from '../../stock/stocks/stocks.component';
 
 @Component({
   selector: 'app-purchaseorders',
   templateUrl: './purchaseorders.component.html'
 })
 export class PurchaseordersComponent {
-  displayedColumns = ['orderNumber', 'orderStatus', 'productName', 'supplierName', 'orderQuantity', 'actions'];
+  displayedColumns = ['orderNumber', 'orderStatus', 'supplierName', 'quantityOrdered', 'billingAmount', 'actions'];
   dataSource: MatTableDataSource<PurchaseOrder>;
   PurchaseOrders: PurchaseOrder[] = [];
+  Stocks: Stock[] = [];
   isLoading = true;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private poService: PurchaseorderService,
+    private router: Router,
     public dialog: MatDialog,
     private exportPdfService: ExportPdfService,
     private toastService: ToastService,
@@ -54,24 +57,11 @@ export class PurchaseordersComponent {
       });
   }
 
-  addPO() {
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-
-    const dialogRef = this.dialog.open(AddPoDialogComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe(form => {
-      if (form) {
-        this.poService.createPO(form).add(() => {
-          this.loadOrders();
-        })
-      }
-    })
+  createOrder() {
+    this.router.navigate(['create-po']);
   }
 
-  updatePO(updatedOrder: PurchaseOrder) {
+  updateOrder(updatedOrder: PurchaseOrder) {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
@@ -81,13 +71,10 @@ export class PurchaseordersComponent {
       id: updatedOrder.id,
       orderNumber: updatedOrder.orderNumber,
       orderStatus: updatedOrder.orderStatus,
-      productCategory: updatedOrder.productCategory,
-      productBrand: updatedOrder.productBrand,
-      productName: updatedOrder.productName,
       supplierName: updatedOrder.supplierName,
-      orderQuantity: updatedOrder.orderQuantity,
-      deliveryDate: updatedOrder.deliveryDate,
-      purchasedPrice: updatedOrder.purchasedPrice
+      quantityOrdered: updatedOrder.quantityOrdered,
+      billingAmount: updatedOrder.billingAmount,
+      deliveryDate: updatedOrder.deliveryDate
     }
 
     const dialogRef = this.dialog.open(UpdatePoDialogComponent, dialogConfig);
@@ -97,33 +84,45 @@ export class PurchaseordersComponent {
         this.poService.updatePO(form).add(() => {
           this.loadOrders();
           if (form.orderStatus === "Completed") {
-            updatedOrder.orderQuantity = form.orderQuantity;
-            updatedOrder.purchasedPrice = form.purchasedPrice;
-            this.addStock(updatedOrder);
+            this.prepareStockPayload(updatedOrder);
           }
         });
       }
     })
   }
 
-  private addStock(poReceived) {
-    this.productService.getBarcodeByProduct({ productName: poReceived.productName, productBrand: poReceived.productBrand })
+  private prepareStockPayload(orderCompleted) {
+    this.poService.getPOById(orderCompleted.id)
+      .subscribe(orderRetrieved => {
+        // TODO: Should use insertMany to insert bulk records in one shot.
+        orderRetrieved.poItems.forEach(element => {
+          element.orderStatus = 'Completed';
+          this.addStock(element);
+        });
+      }, err => {
+        this.toastService.openSnackBar('Data Loading Error: ' + err.status + ' - ' + err.statusText, '', 'error-snackbar');
+        throw err;
+      });
+  }
+
+  private addStock(product) {
+    this.productService.getBarcodeByProduct({ productName: product.productName, productBrand: product.productBrand })
       .subscribe(productDetail => {
-        poReceived.productBarcode = productDetail[0].productBarcode;
-        this.stock.addStock(poReceived);
+        product.productBarcode = productDetail[0].productBarcode;
+        this.stock.addStock(product);
       }, err => {
         throw err;
       });
   }
 
-  deletePO(orderToDelete: PurchaseOrder) {
+  deleteOrder(orderToDelete: PurchaseOrder) {
     this.poService.deletePO(orderToDelete).add(() => {
       this.loadOrders();
     });
   }
 
   downloadPDF() {
-    let columns = ["No", "Order Number", "Order Status", "Product", "Supplier", "Quantity"];
+    let columns = ["No", "Order Number", "Order Status", "Order Quantity", "Supplier", "Amount"];
     let rows = [];
     let itemName = "PURCHASE ORDERS";
     let counter = 1;
@@ -134,9 +133,9 @@ export class PurchaseordersComponent {
           counter++,
           order.orderNumber,
           order.orderStatus,
-          order.productName,
+          order.quantityOrdered,
           order.supplierName,
-          order.orderQuantity
+          order.billingAmount
         ];
         rows.push(orderArray);
       }

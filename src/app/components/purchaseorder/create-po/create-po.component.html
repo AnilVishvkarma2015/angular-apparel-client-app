@@ -1,0 +1,131 @@
+<mat-card class="create-po-card">
+  <mat-card-title class="card-title">Create Purchase Order</mat-card-title>
+  <hr class="dialog-title-hr">
+  <mat-card-content style="margin-top: 5px;">
+    <br>
+    <form [formGroup]="formGroup">
+      <mat-horizontal-stepper #linearHorizontalStepper="matHorizontalStepper" formArrayName="formArray" [linear]="false">
+        <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
+          <ng-template matStepLabel>Order Details</ng-template>
+          <input type="hidden" name="id" formControlName="id">
+          <div fxLayout="row">
+            <mat-form-field class="card-full-width" fxFlex="45%">
+              <input matInput placeholder="Order Number" formControlName="orderNumber" readonly>
+            </mat-form-field>
+            <div fxFlex="10%"></div>
+            <mat-form-field class="card-full-width" fxFlex="45%">
+              <input matInput placeholder="Order Status" formControlName="orderStatus" readonly>
+            </mat-form-field>
+          </div>
+          <br>
+          <div fxLayout="row">
+            <mat-form-field fxFlex="45%">
+              <mat-select placeholder="Supplier" formControlName="supplierName">
+                <mat-option *ngFor="let supplier of supplierNames" [value]="supplier">
+                  {{ supplier }}
+                </mat-option>
+              </mat-select>
+              <mat-error> Please select supplier. </mat-error>
+            </mat-form-field>
+            <div fxFlex="10%"></div>
+            <mat-form-field class="card-full-width" fxFlex="45%">
+              <input matInput [matDatepicker]="picker" placeholder="Expected Date" formControlName="deliveryDate">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error> Please enter expected date. </mat-error>
+            </mat-form-field>
+          </div>
+          <br>
+          <div>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+          </div>
+        </mat-step>
+
+        <mat-step formGroupName="1" [stepControl]="formArray?.get([1])">
+          <ng-template matStepLabel> Order Items </ng-template>
+          <div fxLayout="row">
+            <mat-form-field class="card-full-width" fxFlex="45%">
+              <mat-select placeholder="Product Category" formControlName="productCategory" (selectionChange)="setProductBrandOptions($event.value)">
+                <mat-option *ngFor="let category of productCategories" [value]="category">
+                  {{ category }}
+                </mat-option>
+              </mat-select>
+              <mat-error> Please select product category. </mat-error>
+            </mat-form-field>
+            <div fxFlex="10%"></div>
+            <mat-form-field class="card-full-width" fxFlex="45%">
+              <mat-select placeholder="Product Brand" formControlName="productBrand" (selectionChange)="setProductNameOptions($event.value)">
+                <mat-option *ngFor="let brand of productBrands" [value]="brand">
+                  {{ brand }}
+                </mat-option>
+              </mat-select>
+              <mat-error> Please select product brand. </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row">
+            <mat-form-field fxFlex="45%">
+              <mat-select placeholder="Product Name" formControlName="productName">
+                <mat-option *ngFor="let name of productNames" [value]="name">
+                  {{ name }}
+                </mat-option>
+              </mat-select>
+              <mat-error> Please select product name. </mat-error>
+            </mat-form-field>
+            <div fxFlex="10%"></div>
+            <mat-form-field class="card-full-width" fxFlex="45%">
+              <input matInput placeholder="Quantity" formControlName="orderQuantity">
+              <mat-error> Please enter quantity. </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div>
+            <button mat-raised-button color="primary" type="submit" (click)="addItem()">Add Row</button>
+            <div fxFlex="2%"></div>
+            <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+            <div fxFlex="2%"></div>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+          </div>
+          <br>
+
+          <table id="set-height">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Brand</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Rate</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <ng-container *ngFor="let poItem of poItems;">
+                <tr>
+                  <td>{{poItem.productCategory}}</td>
+                  <td>{{poItem.productBrand}}</td>
+                  <td>{{poItem.productName}}</td>
+                  <td>{{poItem.orderQuantity}}</td>
+                  <td>{{poItem.productPrice}}</td>
+                  <td>{{poItem.productsOrderPrice}}</td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>Confirm order</ng-template>
+          <mat-form-field class="card-full-width" fxFlex="45%">
+            <input matInput placeholder="Total Products Ordering" value={{productsCount}} readonly>
+          </mat-form-field>
+          <div>
+            <button mat-raised-button color="primary" type="button" (click)="linearHorizontalStepper.reset()">Reset</button>
+            <div fxFlex="2%"></div>
+            <button mat-raised-button color="primary" (click)="onSubmit()">Send Order</button>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </form>
+  </mat-card-content>
+</mat-card>

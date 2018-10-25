@@ -1,0 +1,53 @@
+@import url(https://fonts.googleapis.com/css?family=Passion+One);
+  
+  .create-po-card {
+    max-width: 900px;
+    height: 565px;
+    margin: 30px auto auto auto;
+  }
+
+  .card-title {
+    font-family: 'Passion One', cursive;
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  .card-full-width {
+    width: 100%;
+  }
+
+  mat-card-actions {
+    margin: 0 auto;
+  }
+
+#set-height {
+  display: inline-block;
+  height:200px;
+  overflow-y: scroll;
+}
+
+table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table td, table th {
+    border: 1px solid #ddd;
+    padding: 10px;    
+}
+
+
+table tr:nth-child(even){background-color: #f2f2f2;}
+
+table tr:hover {background-color: #ddd;}
+
+table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+

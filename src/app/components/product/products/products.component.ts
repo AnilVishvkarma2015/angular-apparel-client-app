@@ -14,7 +14,7 @@ import { ToastService } from '../../../services/toast.service';
   templateUrl: './products.component.html'
 })
 export class ProductsComponent {
-  displayedColumns = ['productName', 'productBrand', 'productCategory', 'productBarcode', 'actions'];
+  displayedColumns = ['productName', 'productBrand', 'productCategory', 'productBarcode', 'productPrice', 'actions'];
   dataSource: MatTableDataSource<Product>;
   Products: Product[] = [];
   isLoading = true;
@@ -79,7 +79,7 @@ export class ProductsComponent {
       productBrand: product.productBrand,
       productCategory: product.productCategory,
       productBarcode: product.productBarcode,
-      productDescription: product.productDescription
+      productPrice: product.productPrice
     };
 
     const dialogRef = this.dialog.open(UpdateProductDialogComponent,
@@ -101,7 +101,7 @@ export class ProductsComponent {
   }
 
   downloadPDF() {
-    let columns = ["No", "Product Name", "Product Brand", "Product Category", "Product Barcode"];
+    let columns = ["No", "Product Name", "Product Brand", "Product Category", "Product Barcode", "Product Price"];
     let rows = [];
     let itemName = "PRODUCTS REPORT";
     let counter = 1;
@@ -113,7 +113,8 @@ export class ProductsComponent {
           product.productName,
           product.productBrand,
           product.productCategory,
-          product.productBarcode
+          product.productBarcode,
+          product.productPrice
         ];
         rows.push(productArray);
       }
