@@ -38,6 +38,23 @@ export class UpdatePoDialogComponent {
       setDeliveryDate.push(pOrder.deliveryDate);
     }
 
+    let setOrderStatus = [];
+    let setOrderQuantity = [];
+    let setDeliveryDate = [];
+    let setPurchasedPrice = [];
+    if (pOrder.orderStatus === 'Completed') {
+      this.isOrderCompleted = true;
+      setOrderStatus.push({ value: pOrder.orderStatus, disabled: true });
+      setOrderQuantity.push({ value: pOrder.orderQuantity, disabled: true });
+      setDeliveryDate.push({ value: pOrder.deliveryDate, disabled: true });
+      setPurchasedPrice.push({ value: pOrder.purchasedPrice, disabled: true });
+    } else {
+      setOrderStatus.push(pOrder.orderStatus);
+      setOrderQuantity.push(pOrder.orderQuantity);
+      setDeliveryDate.push(pOrder.deliveryDate);
+      setPurchasedPrice.push(pOrder.purchasedPrice);
+    }
+
     this.form = this.formBuilder.group({
       id: [pOrder.id],
       orderNumber: [{ value: pOrder.orderNumber, disabled: true }],

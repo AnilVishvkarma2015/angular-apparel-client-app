@@ -12,7 +12,6 @@ import { ProductService } from '../../../services/product.service';
 import { UpdatePoDialogComponent } from '../update-po-dialog/update-po-dialog.component';
 import { StocksComponent } from '../../stock/stocks/stocks.component';
 
-
 @Component({
   selector: 'app-purchaseorders',
   templateUrl: './purchaseorders.component.html'
