@@ -42,6 +42,7 @@ import { CustomersComponent } from './components/customer/customers/customers.co
 import { SalesComponent } from './components/sale/sales/sales.component';
 import { AddSaleDialogComponent } from './components/sale/add-sale-dialog/add-sale-dialog.component';
 import { CreatePoComponent } from './components/purchaseorder/create-po/create-po.component';
+import { DisplayPoItemsComponent } from './components/purchaseorder/display-po-items/display-po-items.component';
 
 export function initConfig(config: AppConfig) {
   return () => config.load();
@@ -69,7 +70,8 @@ export function initConfig(config: AppConfig) {
     CustomersComponent,
     SalesComponent,
     AddSaleDialogComponent,
-    CreatePoComponent
+    CreatePoComponent,
+    DisplayPoItemsComponent
   ],
   imports: [
     FormsModule,
@@ -90,7 +92,8 @@ export function initConfig(config: AppConfig) {
     UpdatePoDialogComponent,
     UpdateStockDialogComponent,
     AddCustomerDialogComponent,
-    AddSaleDialogComponent
+    AddSaleDialogComponent,
+    DisplayPoItemsComponent
   ],
   providers: [
     AppConfig,
