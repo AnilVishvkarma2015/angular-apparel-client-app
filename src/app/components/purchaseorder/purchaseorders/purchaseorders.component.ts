@@ -11,6 +11,7 @@ import { ToastService } from '../../../services/toast.service';
 import { ProductService } from '../../../services/product.service';
 import { UpdatePoDialogComponent } from '../update-po-dialog/update-po-dialog.component';
 import { StocksComponent } from '../../stock/stocks/stocks.component';
+import { DisplayPoItemsComponent } from '../display-po-items/display-po-items.component';
 
 @Component({
   selector: 'app-purchaseorders',
@@ -119,6 +120,18 @@ export class PurchaseordersComponent {
     this.poService.deletePO(orderToDelete).add(() => {
       this.loadOrders();
     });
+  }
+
+
+  selectedOrder(orderToDisplay) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = orderToDisplay.poItems;
+
+    this.dialog.open(DisplayPoItemsComponent, dialogConfig);
   }
 
   downloadPDF() {
