@@ -1,10 +1,13 @@
+import { SaleItems } from './saleitems.model';
+
 export class Sale {
     id: string;
     billNumber: Number;
-    customerName: string;
+    billDate: Date;
     customerPhone: string;
-    billAmount: Number;
+    grandTotal: Number;
     discount: Number;
     netAmount: Number;
-    quantity: Number;
+    quantitySold: Number;
+    saleItems: SaleItems[];
 }

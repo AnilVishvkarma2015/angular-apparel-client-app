@@ -3,27 +3,18 @@
   .create-po-card {
     max-width: 900px;
     height: 565px;
-    margin: 30px auto auto auto;
+    margin: 15px auto auto auto;
   }
 
   .card-title {
     font-family: 'Passion One', cursive;
-    font-size: 30px;
+    font-size: 25px;
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
   }
 
   .card-full-width {
     width: 100%;
-  }
-
-  mat-card-actions {
-    margin: 0 auto;
-  }
-
-  .table-body {
-    height: 250px;
-    overflow-y: scroll;
   }
 
 table {
@@ -34,9 +25,18 @@ table {
 
 table td, table th {
     border: 1px solid #ddd;
-    padding: 10px;    
+    padding: 10px;  
 }
 
+.table-body {
+    height: 230px;
+    overflow-y: scroll;
+}
+
+.table-checkout {
+  width: 50%; 
+  font-size: 15px;
+}
 
 table tr:nth-child(even){background-color: #f2f2f2;}
 
@@ -49,4 +49,5 @@ table th {
     background-color: #4CAF50;
     color: white;
 }
+
 

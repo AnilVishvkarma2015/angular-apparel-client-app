@@ -1,13 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatDialog, MatDialogConfig } from '@angular/material';
 import { first, finalize } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import * as $ from 'jquery';
 
 import { SaleService } from '../../../services/sale.service';
 import { Sale } from '../../../models/sale.model';
 import { ExportPdfService } from '../../../services/export-pdf.service';
 import { ToastService } from '../../../services/toast.service';
-import { AddSaleDialogComponent } from '../add-sale-dialog/add-sale-dialog.component';
 
 @Component({
   selector: 'app-sales',
@@ -24,6 +24,7 @@ export class SalesComponent {
 
   constructor(private salesService: SaleService,
     public dialog: MatDialog,
+    private router: Router,
     private exportPdfService: ExportPdfService,
     private toastService: ToastService
   ) { }
@@ -52,23 +53,10 @@ export class SalesComponent {
   }
 
   newBill() {
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-
-    const dialogRef = this.dialog.open(AddSaleDialogComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe(form => {
-      if (form) {
-        this.salesService.createSale(form).add(() => {
-          this.loadSales();
-        })
-      }
-    })
+    this.router.navigate(['create-sale']);
   }
 
-  downloadPDF() {
+ /*  downloadPDF() {
     let columns = ["No", "Bill Number", "Customer", "Quantity", "Bill Amount", "Discount", "Net Amount"];
     let rows = [];
     let itemName = "SALES REPORTS";
@@ -89,5 +77,5 @@ export class SalesComponent {
       }
       this.exportPdfService.exportToPdf(columns, rows, itemName);
     })
-  }
+  } */
 }

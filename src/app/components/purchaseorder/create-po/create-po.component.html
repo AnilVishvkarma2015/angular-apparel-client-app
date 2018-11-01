@@ -37,7 +37,7 @@
           </div>
           <br>
           <div>
-            <button mat-raised-button color="primary" matStepperNext>Next</button>
+            <button [disabled]="!isEntryCompleted" mat-raised-button color="primary" matStepperNext>Next</button>
           </div>
         </mat-step>
 
@@ -87,31 +87,38 @@
           </div>
           <br>
 
-          <table id="set-height">
-            <thead>
-              <tr>
-                <th>Category</th>
-                <th>Brand</th>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Rate</th>
-                <th>Amount</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <ng-container *ngFor="let poItem of poItems;">
-                <tr>
-                  <td>{{poItem.productCategory}}</td>
-                  <td>{{poItem.productBrand}}</td>
-                  <td>{{poItem.productName}}</td>
-                  <td>{{poItem.orderQuantity}}</td>
-                  <td>{{poItem.productPrice}}</td>
-                  <td>{{poItem.productsOrderPrice}}</td>
-                </tr>
-              </ng-container>
-            </tbody>
-          </table>
+          <div class="table-body">
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 17%;">Category</th>
+                    <th style="width: 17%;">Brand</th>
+                    <th style="width: 17%;">Product</th>
+                    <th style="width: 15%;">Quantity</th>
+                    <th style="width: 17%;">Rate</th>
+                    <th style="width: 17%;">Amount</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+            <div>
+              <table>
+                <tbody>
+                  <ng-container *ngFor="let poItem of poItems;">
+                    <tr>
+                      <td style="width: 17%;">{{poItem.productCategory}}</td>
+                      <td style="width: 17%;">{{poItem.productBrand}}</td>
+                      <td style="width: 17%;">{{poItem.productName}}</td>
+                      <td style="width: 15%;">{{poItem.orderQuantity}}</td>
+                      <td style="width: 17%;">{{poItem.productPrice}}</td>
+                      <td style="width: 17%;">{{poItem.productsOrderPrice}}</td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </mat-step>
 
         <mat-step>

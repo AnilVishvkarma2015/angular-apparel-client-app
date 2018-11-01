@@ -15,8 +15,8 @@ export class SaleService {
 
   constructor(private http: HttpClient, private toastService: ToastService, private utility: UtilityService) { }
 
-  createSale(newSales: Sale) {
-    return this.http.post(this.apiBaseURL + 'sales/create', newSales, this.utility.requestHeaders())
+  createSale(newSale: Sale) {
+    return this.http.post(this.apiBaseURL + 'sales/create', newSale, this.utility.requestHeaders())
       .subscribe(res => {
         this.toastService.openSnackBar('Bill Created Successfully', '', 'success-snackbar');
         return res;
