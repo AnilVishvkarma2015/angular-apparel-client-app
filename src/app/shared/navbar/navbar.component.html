@@ -6,6 +6,7 @@
         [mode]="(isHandset | async)!.matches ? 'over' : 'side'" [opened]="!(isHandset | async)!.matches">
         <mat-toolbar color="primary" class="current-user">Welcome, {{currentUser | async}}</mat-toolbar>
         <mat-nav-list class="routing">
+          <mat-divider></mat-divider>
           <a mat-list-item routerLink="/users">Users</a>
           <mat-divider></mat-divider>
           <a mat-list-item routerLink="/products">Products</a>

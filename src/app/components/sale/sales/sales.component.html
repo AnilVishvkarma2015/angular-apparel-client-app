@@ -21,15 +21,15 @@
       </ng-container>
 
       <!-- Progress Column -->
-      <ng-container matColumnDef="quantity">
+      <ng-container matColumnDef="quantitySold">
         <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell">Quantity </mat-header-cell>
-        <mat-cell *matCellDef="let row"> <span class="mobile-label">Quantity:</span> {{row.quantity}} </mat-cell>
+        <mat-cell *matCellDef="let row"> <span class="mobile-label">Quantity:</span> {{row.quantitySold}} </mat-cell>
       </ng-container>
 
       <!-- Name Column -->
-      <ng-container matColumnDef="billAmount">
+      <ng-container matColumnDef="grandTotal">
         <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Bill Amount </mat-header-cell>
-        <mat-cell *matCellDef="let row"> <span class="mobile-label">Bill Amount:</span> {{row.billAmount}} </mat-cell>
+        <mat-cell *matCellDef="let row"> <span class="mobile-label">Bill Amount:</span> {{row.grandTotal}} </mat-cell>
       </ng-container>
 
       <!-- Name Column -->
@@ -45,16 +45,19 @@
       </ng-container>
 
       <!-- Name Column -->
-      <ng-container matColumnDef="customerName">
-        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Customer Name </mat-header-cell>
-        <mat-cell *matCellDef="let row"> <span class="mobile-label">Customer Name:</span> {{row.customerName}}
+      <ng-container matColumnDef="customerPhone">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Customer Phone </mat-header-cell>
+        <mat-cell *matCellDef="let row"> <span class="mobile-label">Customer Phone:</span> {{row.customerPhone}}
         </mat-cell>
       </ng-container>
 
       <!-- Name Column -->
-      <ng-container matColumnDef="customerPhone">
-        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Customer Phone </mat-header-cell>
-        <mat-cell *matCellDef="let row"> <span class="mobile-label">Customer Phone:</span> {{row.customerPhone}}
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Action </mat-header-cell>
+        <mat-cell *matCellDef="let row"> <span class="mobile-label">Action:</span>
+          <a class="action-btn" (click)="showBill(row)">
+            <mat-icon>picture_as_pdf</mat-icon>
+          </a>
         </mat-cell>
       </ng-container>
 
@@ -63,7 +66,7 @@
       </mat-row>
     </mat-table>
 
-    <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
+    <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; background: white;">
       <mat-progress-spinner color="primary" mode="indeterminate">
       </mat-progress-spinner>
     </div>

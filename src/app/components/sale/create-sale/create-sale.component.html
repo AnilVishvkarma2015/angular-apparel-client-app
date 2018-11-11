@@ -1,149 +1,161 @@
-<mat-card class="create-po-card">
-  <mat-card-title class="card-title">Billing Section</mat-card-title>
-  <hr class="dialog-title-hr">
-  <mat-card-content style="margin-top: 5px;">
-    <br>
-    <form [formGroup]="formGroup">
-      <mat-horizontal-stepper #linearHorizontalStepper="matHorizontalStepper" formArrayName="formArray" [linear]="false">
-        <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
-          <ng-template matStepLabel>Billing Detail</ng-template>
-          <input type="hidden" name="id" formControlName="id">
+<form [formGroup]="formGroup" class="create-form">
+  <mat-horizontal-stepper #linearHorizontalStepper="matHorizontalStepper" formArrayName="formArray" [linear]="false">
+    <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
+      <ng-template matStepLabel>Billing Detail</ng-template>
+      <input type="hidden" name="id" formControlName="id">
+      <div fxLayout="row">
+        <mat-form-field fxFlex="45%">
+          <input matInput placeholder="Customer Phone" formControlName="customerPhone" (input)="getCustomerDetail($event.target.value)">
+          <mat-error> Please select supplier. </mat-error>
+        </mat-form-field>
+        <div fxFlex="10%"></div>
+        <mat-form-field fxFlex="45%">
+          <input matInput placeholder="Customer Name" formControlName="customerName" value={{customerName}}>
+        </mat-form-field>
+      </div>
+      <br>
+      <div>
+        <button mat-raised-button color="primary" (click)="addCustomer()">Add Customer</button>
+        <div fxFlex="1%"></div>
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+    </mat-step>
 
-          <div fxLayout="row">
-            <mat-form-field fxFlex="45%">
-              <input matInput placeholder="Customer Phone" formControlName="customerPhone" (input)="getCustomerDetail($event.target.value)">
-              <mat-error> Please select supplier. </mat-error>
-            </mat-form-field>
-            <div fxFlex="10%"></div>
-            <mat-form-field fxFlex="45%">
-              <input matInput placeholder="Customer Name" formControlName="customerName" value={{customerName}}
-                readonly>
-            </mat-form-field>
-          </div>
+    <mat-step formGroupName="1" [stepControl]="formArray?.get([1])">
+      <ng-template matStepLabel> Add Items </ng-template>
+      <div fxLayout="row">
+        <div fxFlex="30%">
+          <mat-form-field class="card-full-width">
+            <input matInput placeholder="Bill Number" formControlName="billNumber" readonly>
+          </mat-form-field>
           <br>
-          <div>
-            <button mat-raised-button color="primary" matStepperNext>Next</button>
-          </div>
-        </mat-step>
-
-        <mat-step formGroupName="1" [stepControl]="formArray?.get([1])">
-          <ng-template matStepLabel> Add Items </ng-template>
-          <div fxLayout="row">
-            <mat-form-field fxFlex="45%">
-              <input matInput placeholder="Enter Barcode" formControlName="barcode" (input)="itemScanned($event.target.value)">
-              <mat-error> Please select supplier. </mat-error>
-            </mat-form-field>
-            <div fxFlex="10%"></div>
-            <mat-form-field fxFlex="45%">
-              <input matInput placeholder="Customer Phone" formControlName="customerPhone" value={{customerPhone}}
-                readonly>
-            </mat-form-field>
-          </div>
-
-          <div>
-            <button mat-raised-button color="primary">Cancel</button>
-            <div fxFlex="2%"></div>
-            <button mat-raised-button color="primary" (click)="checkoutDetail()" matStepperNext>Checkout</button>
-          </div>
           <br>
-
-          <div>
-            <div>
-              <table>
-                <thead>
-                  <tr>
-                    <th style="width: 25%;">Product</th>
-                    <th style="width: 25%;">Quantity</th>
-                    <th style="width: 25%;">Rate</th>
-                    <th style="width: 25%;">Amount</th>
-                  </tr>
-                </thead>
-              </table>
-            </div>
-            <div class="table-body">
-              <table>
-                <tbody>
-                  <ng-container *ngFor="let billingItem of billingItems;">
-                    <tr>
-                      <td style="width: 25.6%;">{{billingItem.productName}}</td>
-                      <td style="width: 25.5%;">{{billingItem.quantity}}</td>
-                      <td style="width: 25.5%;">{{billingItem.sellingPrice}}</td>
-                      <td>{{billingItem.totalAmount}}</td>
-                    </tr>
-                  </ng-container>
-                </tbody>
-              </table>
-            </div>
-            <div>
-              <table>
-                <thead>
-                  <tr>
-                    <th style="width: 25%;">Grand Total</th>
-                    <th style="width: 50%">{{quantitySold}}</th>
-                    <th style="width: 25%;">{{grandTotal}}</th>
-                  </tr>
-                </thead>
-              </table>
-            </div>
-          </div>
-        </mat-step>
-
-        <mat-step>
-          <ng-template matStepLabel>Checkout</ng-template>
-          <div fxLayout="row">
-            <div fxFlex="48%">
-              <table>
-                <thead>
-                  <tr>
-                    <th class="table-checkout" style="background: #3F729B">Items Count</th>
-                    <th class="table-checkout" style="background: #3F729B">{{quantitySold}}</th>
-                  </tr>
-                  <tr>
-                    <th class="table-checkout" style="background: #3F729B">Grand Total</th>
-                    <th class="table-checkout" style="background: #3F729B">{{grandTotal}}</th>
-                  </tr>
-                  <tr>
-                    <th class="table-checkout" style="background: #3F729B">Discount (%)</th>
-                    <th class="table-checkout" style="background: #3F729B">{{discount}}</th>
-                  </tr>
-                  <tr>
-                    <th class="table-checkout" style="background: #3F729B">Net Payable</th>
-                    <th class="table-checkout" style="background: #3F729B">{{netAmount}}</th>
-                  </tr>
-                </thead>
-              </table>
-            </div>
-            <div fxFlex="4%"></div>
-            <div fxFlex="48%">
-              <table>
-                <thead>
-                  <tr>
-                    <th class="table-checkout" style="background: #3F729B">Bill Number</th>
-                    <th class="table-checkout" style="background: #3F729B">{{quantitySold}}</th>
-                  </tr>
-                  <tr>
-                    <th class="table-checkout" style="background: #3F729B">Bill Date</th>
-                    <th class="table-checkout" style="background: #3F729B">{{grandTotal}}</th>
-                  </tr>
-                  <tr>
-                    <th class="table-checkout" style="background: #3F729B">Customer</th>
-                    <th class="table-checkout" style="background: #3F729B">{{discount}}</th>
-                  </tr>
-                  <tr>
-                    <th class="table-checkout" style="background: #3F729B">Sales Exec.</th>
-                    <th class="table-checkout" style="background: #3F729B">Anil Vishvkarma</th>
-                  </tr>
-                </thead>
-              </table>
-            </div>
-          </div>
-          <div style="margin-top: 10px;">
-            <button mat-raised-button color="primary" type="button" (click)="linearHorizontalStepper.reset()">Cancel</button>
+          <mat-form-field class="card-full-width">
+            <input matInput placeholder="Bill Date" formControlName="billDate" readonly>
+          </mat-form-field>
+          <br>
+          <br>
+          <mat-form-field class="card-full-width">
+            <input matInput placeholder="Customer Phone" formControlName="customerPhone" value={{customerPhone}}
+              readonly>
+          </mat-form-field>
+          <br>
+          <br>
+          <mat-form-field class="card-full-width">
+            <input matInput placeholder="Enter Barcode" formControlName="barcode" (input)="itemScanned($event.target.value)">
+          </mat-form-field>
+          <div style="margin-top: 145px;">
+            <button mat-raised-button color="primary" class="checkout-button">CANCEL</button>
             <div fxFlex="2%"></div>
-            <button mat-raised-button color="primary" (click)="onSubmit()">Payment</button>
+            <button mat-raised-button color="primary" class="checkout-button" (click)="checkoutDetail()" matStepperNext>CHECKOUT</button>
           </div>
-        </mat-step>
-      </mat-horizontal-stepper>
-    </form>
-  </mat-card-content>
-</mat-card>
+        </div>
+
+        <div fxFlex="5%"></div>
+        <div fxFlex="65%">
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th style="width: 25%;">Product</th>
+                  <th style="width: 25%;">Quantity</th>
+                  <th style="width: 25%;">Rate</th>
+                  <th style="width: 25%;">Amount</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <div class="table-body">
+            <table>
+              <tbody>
+                <ng-container *ngFor="let billingItem of billingItems;">
+                  <tr>
+                    <td style="width: 25%;">{{billingItem.productName}}</td>
+                    <td style="width: 25%;">{{billingItem.quantity}}</td>
+                    <td style="width: 25%;">{{billingItem.sellingPrice}}</td>
+                    <td>{{billingItem.totalAmount}}</td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <td style="width: 25%; height: 50px; background: #3F51B5;  font-family: 'Passion One', cursive;
+                  font-size: 28px; ">GRAND
+                    TOTAL</td>
+                  <td style="width: 50%; height: 50px; background: #3F51B5;  font-family: 'Passion One', cursive;
+                  font-size: 28px; ">{{quantitySold}}</td>
+                  <td style="width: 25%; height: 50px; background: #3F51B5;  font-family: 'Passion One', cursive;
+                  font-size: 28px; ">{{grandTotal}}</td>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+      </div>
+    </mat-step>
+
+    <mat-step formGroupName="2" [stepControl]="formArray?.get([2])">
+      <ng-template matStepLabel>Checkout</ng-template>
+      <div fxLayout="row">
+        <div fxFlex="45%" style="background: #2196F3; border-radius: 3px;">
+          <div class="payment-card-head" style="font-weight: bold"> Payment Details:</div>
+          <hr class="payment-card-hr">
+
+          <div class="payment-card-head"> Grand Total:</div>
+          <div class="payment-card-content"> {{grandTotal}}</div>
+          <hr class="payment-card-hr">
+
+          <div class="payment-card-head"> Discount:</div>
+          <div class="payment-card-content"> {{discount}}</div>
+          <hr class="payment-card-hr">
+
+          <div class="payment-card-head"> Net Payable:</div>
+          <div class="payment-card-content"> {{netAmount}}</div>
+          <hr class="payment-card-hr">
+
+          <div class="payment-card-head"> Paid:</div>
+          <div class="payment-card-content"> {{paidAmount}}</div>
+          <hr class="payment-card-hr">
+
+          <div class="payment-card-head"> Balance:</div>
+          <div class="payment-card-content"> {{balanceAmount}}</div>
+          <hr class="payment-card-hr" style="margin-bottom: 50px;">
+        </div>
+        <div fxFlex="5%"></div>
+        <div fxFlex="55%">
+          <div fxLayout="column">
+            <div fxFlex="100%" style="background: #2196F3; border-radius: 3px;">
+              <div class="payment-card-head" style="font-weight: bold"> Billing Details:</div>
+              <hr class="payment-card-hr">
+
+              <div class="payment-card-head"> Bill Number:</div>
+              <div class="payment-card-content"> {{billNumber}}</div>
+              <hr class="payment-card-hr">
+
+              <div class="payment-card-head"> Bill Date:</div>
+              <div class="payment-card-content"> {{billDate}}</div>
+              <hr class="payment-card-hr">
+
+              <div class="payment-card-head"> Customer Phone:</div>
+              <div class="payment-card-content"> {{customerPhone}}</div>
+              <hr class="payment-card-hr" style="margin-bottom: 30px;">
+            </div>
+
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Enter Amount to be paid..." formControlName="paidAmount" (input)="paidAmountDetail($event.target.value)">
+            </mat-form-field>
+            <div>
+              <button mat-raised-button color="primary" type="button" class="checkout-button" (click)="linearHorizontalStepper.reset()">CANCEL</button>
+              <div fxFlex="2%"></div>
+              <button mat-raised-button color="primary" class="checkout-button" (click)="onSubmit()">PRINT</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</form>

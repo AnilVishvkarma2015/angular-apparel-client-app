@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatDialog, MatDialogConfig } from '@angular/material';
 import { first, finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import * as $ from 'jquery';
 
 import { SaleService } from '../../../services/sale.service';
 import { Sale } from '../../../models/sale.model';
@@ -15,7 +14,7 @@ import { ToastService } from '../../../services/toast.service';
   styleUrls: ['./sales.component.scss']
 })
 export class SalesComponent {
-  displayedColumns = ['billNumber', 'quantity', 'billAmount', 'discount', 'netAmount', 'customerName', 'customerPhone'];
+  displayedColumns = ['billNumber', 'quantitySold', 'grandTotal', 'discount', 'netAmount', 'customerPhone', 'action'];
   dataSource: MatTableDataSource<Sale>;
   Sales: Sale[] = [];
   isLoading = true;
@@ -43,6 +42,7 @@ export class SalesComponent {
     this.salesService.getSales().pipe(
       finalize(() => this.isLoading = false))
       .subscribe(sales => {
+        console.log("Sales records ---", sales);
         this.dataSource = new MatTableDataSource(sales);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -56,7 +56,7 @@ export class SalesComponent {
     this.router.navigate(['create-sale']);
   }
 
- /*  downloadPDF() {
+  downloadPDF() {
     let columns = ["No", "Bill Number", "Customer", "Quantity", "Bill Amount", "Discount", "Net Amount"];
     let rows = [];
     let itemName = "SALES REPORTS";
@@ -67,9 +67,9 @@ export class SalesComponent {
         let salesArray = [
           counter++,
           sale.billNumber,
-          sale.customerName,
-          sale.quantity,
-          sale.billAmount,
+          sale.customerPhone,
+          sale.quantitySold,
+          sale.grandTotal,
           sale.discount,
           sale.netAmount
         ];
@@ -77,5 +77,36 @@ export class SalesComponent {
       }
       this.exportPdfService.exportToPdf(columns, rows, itemName);
     })
-  } */
+  }
+
+  showBill(billingRecord) {
+    let columns = ["Item", "Quantity", "Rate", "Amount"];
+    let rows = [];
+    let itemName = "TAX INVOICE";
+    let billlingItem = billingRecord.billingItems;
+    let lineHeight = 208;
+
+    let invoiceDetails = {
+      billNumber: billingRecord.billNumber,
+      billDate: billingRecord.billDate,
+      customerPhone: billingRecord.customerPhone,
+      counter: "Counter - D"
+    }
+
+    for (var bill of billlingItem) {
+      lineHeight = lineHeight + 21;
+      let itemsArray = [
+        bill.productName,
+        bill.quantity,
+        bill.sellingPrice,
+        bill.totalAmount
+      ];
+      rows.push(itemsArray);
+    }
+
+    rows.push(["", "", "Grand Total (Rs.)", billingRecord.grandTotal]);
+    rows.push(["", "", "Discount (%)", billingRecord.discount]);
+    rows.push(["", "", "Net Amount (Rs.)", billingRecord.netAmount]);
+    this.exportPdfService.exportBillPdf(columns, rows, lineHeight, itemName, invoiceDetails);
+  }
 }
