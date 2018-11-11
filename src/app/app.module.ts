@@ -40,9 +40,9 @@ import { StockService } from './services/stock.service';
 import { AddCustomerDialogComponent } from './components/customer/add-customer-dialog/add-customer-dialog.component';
 import { CustomersComponent } from './components/customer/customers/customers.component';
 import { SalesComponent } from './components/sale/sales/sales.component';
-import { AddSaleDialogComponent } from './components/sale/add-sale-dialog/add-sale-dialog.component';
 import { CreatePoComponent } from './components/purchaseorder/create-po/create-po.component';
 import { DisplayPoItemsComponent } from './components/purchaseorder/display-po-items/display-po-items.component';
+import { CreateSaleComponent } from './components/sale/create-sale/create-sale.component';
 
 export function initConfig(config: AppConfig) {
   return () => config.load();
@@ -69,9 +69,9 @@ export function initConfig(config: AppConfig) {
     AddCustomerDialogComponent,
     CustomersComponent,
     SalesComponent,
-    AddSaleDialogComponent,
     CreatePoComponent,
-    DisplayPoItemsComponent
+    DisplayPoItemsComponent,
+    CreateSaleComponent
   ],
   imports: [
     FormsModule,
@@ -92,7 +92,6 @@ export function initConfig(config: AppConfig) {
     UpdatePoDialogComponent,
     UpdateStockDialogComponent,
     AddCustomerDialogComponent,
-    AddSaleDialogComponent,
     DisplayPoItemsComponent
   ],
   providers: [

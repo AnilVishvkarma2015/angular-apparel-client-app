@@ -1,0 +1,86 @@
+@import url(https://fonts.googleapis.com/css?family=Passion+One);
+  
+.create-form {
+  margin: 30px auto auto auto; 
+}
+
+.card-full-width {
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+  font-size: 28px;
+  margin-top: 30px;
+  font-family: 'Passion One', cursive;
+}
+
+table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table td, table th {
+    border: 1px solid #ddd;
+    padding: 10px;  
+    background-color: #2E2E2E;
+    font-size: 14px; 
+    color: white;
+}
+
+.table-body {
+    height: 419px;
+    overflow-y: auto;
+}
+
+/* ::ng-deep .mat-horizontal-stepper-header-container {
+  display: none !important;
+} */
+
+.checkout-button {
+  font-family: 'Passion One', cursive;
+  font-size: 28px; 
+  width: 50%;
+  height: 70px;
+}
+
+table th {
+    font-size: 15px; 
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #2E2E2E;
+    color: white;
+}
+
+.mat-stepper-horizontal, .mat-stepper-vertical {
+  background: #fafafa;
+}
+
+.table-checkout {
+  width: 50%;
+  height: 30px;
+}
+
+.payment-card-head {
+  font-size: 11px; 
+  margin-left: 51px; 
+  margin-top:  35px; 
+  color: white;
+}
+
+.payment-card-content {
+  font-size: 11px; 
+  margin-left: 51px; 
+  margin-top:  10px; 
+  color: white;
+  font-weight: bold
+}
+
+.payment-card-hr {
+  background: white; 
+  margin-left: 51px; 
+  margin-right: 51px; 
+}
+

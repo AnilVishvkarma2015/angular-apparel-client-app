@@ -12,6 +12,7 @@ import { StocksComponent } from './components/stock/stocks/stocks.component';
 import { CustomersComponent } from './components/customer/customers/customers.component';
 import { SalesComponent } from './components/sale/sales/sales.component';
 import { CreatePoComponent } from './components/purchaseorder/create-po/create-po.component';
+import { CreateSaleComponent } from './components/sale/create-sale/create-sale.component';
 import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
@@ -66,6 +67,11 @@ const routes: Routes = [
     path: 'create-po',
     canActivate: [AuthGuard],
     component: CreatePoComponent
+  },
+  {
+    path: 'create-sale',
+    canActivate: [AuthGuard],
+    component: CreateSaleComponent
   },
   { path: '**', redirectTo: '' }
 ];

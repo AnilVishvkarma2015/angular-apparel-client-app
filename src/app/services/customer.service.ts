@@ -29,6 +29,12 @@ export class CustomerService {
     }));
   }
 
+  getCustomerByPhone(phone) {
+    return this.http.get<Customer>(this.apiBaseURL + 'customers/getByPhone/' + phone).pipe(map(res => {
+      return res;
+    }));
+  }
+
   updateCustomer(updatedCustomer: Customer) {
     return this.http.put(this.apiBaseURL + 'customers/' + updatedCustomer.id, updatedCustomer)
       .subscribe(res => {

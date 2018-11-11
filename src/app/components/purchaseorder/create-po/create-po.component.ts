@@ -21,6 +21,7 @@ export class CreatePoComponent {
   public productCategories: string[] = [];
   public productBrands: {};
   public productNames: {};
+  isEntryCompleted = false;
   productsCount = 0;
   billingAmount = 0;
 

@@ -21,11 +21,10 @@
     margin: 0 auto;
   }
 
-#set-height {
-  display: inline-block;
-  height:200px;
-  overflow-y: scroll;
-}
+  .table-body {
+    height: 250px;
+    overflow-y: scroll;
+  }
 
 table {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
