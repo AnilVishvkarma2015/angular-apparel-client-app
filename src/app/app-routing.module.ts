@@ -14,6 +14,8 @@ import { SalesComponent } from './components/sale/sales/sales.component';
 import { CreatePoComponent } from './components/purchaseorder/create-po/create-po.component';
 import { CreateSaleComponent } from './components/sale/create-sale/create-sale.component';
 import { HomeComponent } from './components/home/home.component';
+import { ForgotPasswordComponent } from './components/user/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/user/reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -27,6 +29,14 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'forgotpassword',
+    component: ForgotPasswordComponent
+  },
+  {
+    path: 'resetpassword',
+    component: ResetPasswordComponent
   },
   {
     path: 'users',

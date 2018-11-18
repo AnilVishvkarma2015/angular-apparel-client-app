@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { NgForm, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { ToastService } from '../../../services/toast.service';
 import { AuthenticationService } from '../../../services/authentication.service';
@@ -67,5 +67,9 @@ export class LoginComponent implements OnInit {
           this.toast.openSnackBar("Invalid Credentials", '', 'error-snackbar');
           this.loading = false;
         });
+  }
+
+  forgotPassword() {
+    this.router.navigate(['forgotpassword']);
   }
 }

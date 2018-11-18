@@ -29,6 +29,12 @@ export class UserService {
     }));
   }
 
+  getUserByEmail(email) {
+    return this.http.post(this.apiBaseURL + 'users/getByEmail', email, this.utility.requestHeaders()).pipe(map(res => {
+      return res;
+    }));
+  }
+
   updateUser(updatedUser: User) {
     return this.http.put(this.apiBaseURL + 'users/' + updatedUser.id, updatedUser)
       .subscribe(res => {
