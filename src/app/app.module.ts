@@ -43,6 +43,8 @@ import { SalesComponent } from './components/sale/sales/sales.component';
 import { CreatePoComponent } from './components/purchaseorder/create-po/create-po.component';
 import { DisplayPoItemsComponent } from './components/purchaseorder/display-po-items/display-po-items.component';
 import { CreateSaleComponent } from './components/sale/create-sale/create-sale.component';
+import { ForgotPasswordComponent } from './components/user/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/user/reset-password/reset-password.component';
 
 export function initConfig(config: AppConfig) {
   return () => config.load();
@@ -71,7 +73,9 @@ export function initConfig(config: AppConfig) {
     SalesComponent,
     CreatePoComponent,
     DisplayPoItemsComponent,
-    CreateSaleComponent
+    CreateSaleComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     FormsModule,
