@@ -13,9 +13,11 @@ import { CustomersComponent } from './components/customer/customers/customers.co
 import { SalesComponent } from './components/sale/sales/sales.component';
 import { CreatePoComponent } from './components/purchaseorder/create-po/create-po.component';
 import { CreateSaleComponent } from './components/sale/create-sale/create-sale.component';
-import { HomeComponent } from './components/home/home.component';
+import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
 import { ForgotPasswordComponent } from './components/user/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/user/reset-password/reset-password.component';
+import { ReportsComponent } from './components/report/reports/reports.component';
+import { FeedbacksComponent } from './components/feedback/feedbacks/feedbacks.component';
 
 const routes: Routes = [
   {
@@ -82,6 +84,21 @@ const routes: Routes = [
     path: 'create-sale',
     canActivate: [AuthGuard],
     component: CreateSaleComponent
+  },
+  {
+    path: 'settings',
+    canActivate: [AuthGuard],
+    component: UserProfileComponent
+  },
+  {
+    path: 'reports',
+    canActivate: [AuthGuard],
+    component: ReportsComponent
+  },
+  {
+    path: 'feedbacks',
+    canActivate: [AuthGuard],
+    component: FeedbacksComponent
   },
   { path: '**', redirectTo: '' }
 ];

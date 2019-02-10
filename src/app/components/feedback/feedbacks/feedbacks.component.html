@@ -1,0 +1,19 @@
+<div class="table-layout">
+  <div>
+    <button mat-raised-button color="primary" type="submit" (click)="addFeedback()">Add New Feedback</button>
+  </div>
+
+  <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center;">
+    <mat-progress-spinner color="primary" mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
+
+  <div *ngFor="let feedback of feedbacks">
+    <br>
+    <mat-card>
+      <div class="user-name" style="font-size: 13px;">{{ feedback.feedbackUser }} </div> <br>
+      <div class="user-name" style="font-size: 12px;">{{ feedback.feedbackMessage }} </div><br>
+      <div class="user-name" style="font-size: 13px;">{{ feedback.createdDate }} </div>
+    </mat-card>
+  </div>
+</div>

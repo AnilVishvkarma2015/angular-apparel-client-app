@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators'
+import { Router } from '@angular/router';
 
 import { User } from '../models/user.model';
 import { ToastService } from './toast.service';
@@ -13,14 +14,19 @@ import { AppConfig } from '../config/app.config';
 export class UserService {
   apiBaseURL = AppConfig.settings.apiServer.baseURL;
 
-  constructor(private http: HttpClient, private toastService: ToastService, private utility: UtilityService) { }
+  constructor(private http: HttpClient, private toastService: ToastService, private utility: UtilityService, private router: Router) { }
 
   createUser(newUser: User) {
     return this.http.post(this.apiBaseURL + 'users/register', newUser, this.utility.requestHeaders())
       .subscribe(res => {
         this.toastService.openSnackBar('User Created Successfully', '', 'success-snackbar');
+        this.router.navigate(['login']);
         return res;
-      }, error => { throw error; });
+      }, error => {
+        this.toastService.openSnackBar('Email already registered', '', 'error-snackbar');
+        this.router.navigate(['register']);
+        throw error;
+      });
   }
 
   getUsers() {
@@ -29,8 +35,8 @@ export class UserService {
     }));
   }
 
-  getUserByEmail(email) {
-    return this.http.post(this.apiBaseURL + 'users/getByEmail', email, this.utility.requestHeaders()).pipe(map(res => {
+  getUserById(userId): any {
+    return this.http.get(this.apiBaseURL + 'users/' + userId).pipe(map(res => {
       return res;
     }));
   }

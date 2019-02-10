@@ -44,7 +44,7 @@ export class AddSupplierDialogComponent {
       supplierCity: ["", Validators.required],
       supplierAddress: ["", Validators.required]
     })
-  }
+  } 
 
   isFieldInvalid(field: string) {
     return (

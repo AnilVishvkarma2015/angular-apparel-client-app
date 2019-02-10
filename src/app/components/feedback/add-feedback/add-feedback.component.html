@@ -1,0 +1,23 @@
+<div>
+  <div>
+    <mat-dialog-content [formGroup]="form">
+      <input type="hidden" name="id" formControlName="id">
+      <div>
+        <mat-form-field>
+          <textarea matInput placeholder="Leave a feedback message" formControlName="feedbackMessage"></textarea>
+          <mat-error *ngIf="isFieldInvalid('feedbackMessage')">
+            Please enter supplier name.
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button class="mat-raised-button" (click)="close()">
+        Close
+      </button>
+      <button [disabled]="!form.valid" class="mat-raised-button mat-primary" (click)="save()">
+        Save
+      </button>
+    </mat-dialog-actions>
+  </div>
+</div>

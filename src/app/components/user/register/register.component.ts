@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
   password: FormControl;
   formSubmitAttempt: boolean;
 
-  constructor(public toast: ToastService, private router: Router, private userService: UserService) { }
+  constructor(public toast: ToastService, private userService: UserService) { }
 
   ngOnInit() {
     this.createFormControls();
@@ -64,9 +64,6 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(form: any) {
     this.formSubmitAttempt = true;
-    this.userService.createUser(form.value).add(() => {
-      this.toast.openSnackBar('User Registered Successfully', '', 'success-snackbar');
-      this.router.navigate(['login']);
-    });
+    this.userService.createUser(form.value);
   }
 }
