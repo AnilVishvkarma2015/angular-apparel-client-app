@@ -1,0 +1,140 @@
+<div class="layout">
+  <div fxLayout="row">
+    <div fxFlex="30%">
+      <div class="rounded"></div>
+      <h3> {{currentUserName}}</h3>
+      <h4> {{currentUserEmail}}</h4>
+      <h4> {{currentUserPhone}}</h4>
+    </div>
+    <div *ngIf="filtersLoaded | async" fxFlex="70%">
+      <mat-tab-group [formGroup]="userForm" (ngSubmit)="onSubmit(userForm)">
+        <input type="hidden" name="id" formControlName="id">
+        <mat-tab label="General Information">
+          <div class="tab-content">
+            <div fxLayout="row">
+              <mat-form-field fxFlex="33%">
+                <input matInput placeholder="First Name" formControlName="firstName" [readonly]="!editable">
+                <!--  <mat-error *ngIf="isFieldInvalid('supplierName')">
+                  Please enter supplier name.
+                </mat-error> -->
+              </mat-form-field>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="33%">
+                <input matInput placeholder="Last Name" formControlName="lastName" [readonly]="!editable">
+                <!--  <mat-error *ngIf="isFieldInvalid('supplierCode')">
+                  Please enter supplier code.
+                </mat-error> -->
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="row">
+              <mat-form-field fxFlex="33%">
+                <input matInput placeholder="Email" formControlName="email" [readonly]="!editable">
+                <!--  <mat-error *ngIf="isFieldInvalid('supplierEmail')">
+                  Please enter supplier email.
+                </mat-error> -->
+              </mat-form-field>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="33%">
+                <input matInput placeholder="Phone" formControlName="phone" [readonly]="!editable">
+                <!-- <mat-error *ngIf="isFieldInvalid('supplierPhone')">
+                  Please enter supplier phone.
+                </mat-error> -->
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" class="button">
+              <button class="mat-raised-button mat-primary" (click)="enableEditable()"> Edit </button>
+              <div fxFlex="1%"></div>
+              <button class="mat-raised-button mat-primary" (click)="onSubmit()"> Save </button>
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Address">
+          <div class="tab-content">
+            <div fxLayout="row">
+              <mat-form-field fxFlex="33%">
+                <mat-select placeholder="Country" formControlName="country">
+                  <mat-option *ngFor="let country of countryList" [value]="country">
+                    {{ country }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="33%">
+                <mat-select placeholder="State" formControlName="state">
+                  <mat-option *ngFor="let state of stateList" [value]="state.name">
+                    {{ state.name }}
+                  </mat-option>
+                </mat-select>
+                <!--  <mat-error *ngIf="isFieldInvalid('supplierState')">
+                    Please select state.
+                  </mat-error> -->
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="row">
+              <mat-form-field fxFlex="33%">
+                <mat-select placeholder="City" formControlName="city">
+                  <mat-option *ngFor="let city of cityList" [value]="city.name">
+                    {{ city.name }}
+                  </mat-option>
+                </mat-select>
+                <!--  <mat-error *ngIf="isFieldInvalid('supplierCity')">
+                    Please select city.
+                  </mat-error> -->
+              </mat-form-field>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="33%">
+                <input matInput placeholder="Address" formControlName="address" [readonly]="!editable">
+                <!-- <mat-error *ngIf="isFieldInvalid('supplierPhone')">
+                      Please enter supplier phone.
+                    </mat-error> -->
+              </mat-form-field>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="33%">
+                <input matInput placeholder="Pincode" formControlName="pincode" [readonly]="!editable">
+                <!-- <mat-error *ngIf="isFieldInvalid('supplierPhone')">
+                        Please enter supplier phone.
+                      </mat-error> -->
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" class="button">
+              <button class="mat-raised-button mat-primary" (click)="enableEditable()"> Edit </button>
+              <div fxFlex="1%"></div>
+              <button class="mat-raised-button mat-primary" (click)="onSubmit()"> Save </button>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Chnage Password">
+          <div class="tab-content">
+            <div fxLayout="row">
+              <mat-form-field fxFlex="33%">
+                <input matInput placeholder="New Password" formControlName="changePassword" type="password">
+                <!--  <mat-error *ngIf="isFieldInvalid('supplierCode')">
+                      Please enter supplier code.
+                    </mat-error> -->
+              </mat-form-field>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="33%">
+                <input matInput placeholder="Confirm Password" formControlName="confirmPassword" type="password">
+                <!--  <mat-error *ngIf="isFieldInvalid('supplierCode')">
+                        Please enter supplier code.
+                      </mat-error> -->
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" class="button">
+              <button class="mat-raised-button mat-primary" (click)="changePassword()"> Save </button>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

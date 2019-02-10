@@ -1,0 +1,18 @@
+<div>
+  <div class="heading">
+    COMING SOON
+  </div>
+  <div class="content">
+    This page is under construction, subscribe for latest updates!
+  </div>
+  <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
+    <div fxLayout="row">
+      <div fxFlex="35%"></div>
+      <mat-form-field class="card-full-width">
+        <input matInput placeholder="Email" formControlName="subscriberEmail">
+      </mat-form-field>
+      <div fxFlex="2%"></div>
+      <button mat-raised-button color="accent" type="submit" class="button">Subscribe</button>
+    </div>
+  </form>
+</div>

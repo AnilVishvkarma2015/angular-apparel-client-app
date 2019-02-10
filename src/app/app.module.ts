@@ -45,6 +45,10 @@ import { DisplayPoItemsComponent } from './components/purchaseorder/display-po-i
 import { CreateSaleComponent } from './components/sale/create-sale/create-sale.component';
 import { ForgotPasswordComponent } from './components/user/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/user/reset-password/reset-password.component';
+import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
+import { ReportsComponent } from './components/report/reports/reports.component';
+import { FeedbacksComponent } from './components/feedback/feedbacks/feedbacks.component';
+import { AddFeedbackComponent } from './components/feedback/add-feedback/add-feedback.component';
 
 export function initConfig(config: AppConfig) {
   return () => config.load();
@@ -75,7 +79,11 @@ export function initConfig(config: AppConfig) {
     DisplayPoItemsComponent,
     CreateSaleComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    UserProfileComponent,
+    ReportsComponent,
+    FeedbacksComponent ,
+    AddFeedbackComponent  
   ],
   imports: [
     FormsModule,
@@ -96,7 +104,8 @@ export function initConfig(config: AppConfig) {
     UpdatePoDialogComponent,
     UpdateStockDialogComponent,
     AddCustomerDialogComponent,
-    DisplayPoItemsComponent
+    DisplayPoItemsComponent,
+    AddFeedbackComponent
   ],
   providers: [
     AppConfig,
