@@ -20,7 +20,7 @@ export class FeedbackService {
     return this.http.post(this.apiBaseURL + 'feedbacks/create', feedback, this.utility.requestHeaders())
       .subscribe(res => {
         this.toastService.openSnackBar('Feedback registered Successfully', '', 'success-snackbar');
-        this.router.navigate(['feedback']);
+        this.router.navigate(['feedbacks']);
         return res;
       }, error => { throw error; });
   }

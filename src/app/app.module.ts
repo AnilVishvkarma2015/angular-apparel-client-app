@@ -83,7 +83,7 @@ export function initConfig(config: AppConfig) {
     UserProfileComponent,
     ReportsComponent,
     FeedbacksComponent ,
-    AddFeedbackComponent  
+    AddFeedbackComponent
   ],
   imports: [
     FormsModule,
