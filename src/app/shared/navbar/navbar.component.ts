@@ -22,4 +22,9 @@ export class NavbarComponent {
   onLogout() {
     this.authService.logout();
   }
+
+  help() {
+    console.log("--- inside help function ---");
+    window.open('/assets/static/Rshop Manual.pdf', '_blank');
+  }
 }
