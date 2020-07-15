@@ -20,7 +20,7 @@ export class ExportPdfService {
         doc.setFontStyle('bold');
         doc.text("4th Floor, Building No 2, Commerzone IT Park", 40, 55);
         doc.text("Yerwada, Pune-411006", 40, 70);
-        doc.text("Email: anil.vishvkarma@jci.com", 40, 85);
+        doc.text("Email: anil.vishvkarma@gmail.com", 40, 85);
         doc.text("Phone: +91 9713448164", 40, 100);
         doc.setLineWidth(2);
         doc.line(40, 115, 555, 115);
@@ -45,7 +45,7 @@ export class ExportPdfService {
         doc.setFontStyle('bold');
         doc.text("4th Floor, Building No 2, Commerzone IT Park", 40, 55);
         doc.text("Yerwada, Pune-411006", 40, 70);
-        doc.text("Email: anil.vishvkarma@jci.com", 40, 85);
+        doc.text("Email: anil.vishvkarma@gmail.com", 40, 85);
         doc.text("Phone: +91 9713448164", 40, 100);
         doc.setLineWidth(2);
         doc.line(40, 115, 555, 115);
